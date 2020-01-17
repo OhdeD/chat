@@ -19,17 +19,20 @@ repositories {
 }
 
 dependencies {
-	compile 'org.springframework.boot:spring-boot-starter-data-rest'
-	compile 'org.springframework.boot:spring-boot-starter-security'
+//	compile 'org.springframework.boot:spring-boot-starter-security'
 	compile 'org.springframework.boot:spring-boot-starter-web'
+	compile 'org.springframework.boot:spring-boot-starter-data-jpa'
 	compileOnly 'org.projectlombok:lombok'
-	annotationProcessor 'org.projectlombok:lombok'
+	compile 'mysql:mysql-connector-java'
+
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
-	testImplementation 'org.springframework.security:spring-security-test'
-}
+	implementation 'junit:junit:4.12'
+	implementation 'junit:junit:4.12'
+//	testImplementation 'org.springframework.security:spring-security-test'
 
-test {
-	useJUnitPlatform()
+//	runtimeOnly('com.h2database:h2')
+//	testCompile group: 'com.h2database', name: 'h2'
+
 }
