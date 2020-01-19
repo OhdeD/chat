@@ -1,6 +1,12 @@
 package com.chat.controller;
 
-import com.chat.domain.ChatUserDto;
+import com.chat.domain.DTO.ChatUserDto;
+import com.chat.mapper.ChatMapper;
+import com.chat.service.ChatUserDbService;
+import com.chat.service.ConvDbService;
+import com.chat.service.FriendsListDbService;
+import com.chat.service.MessageDbService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -11,6 +17,21 @@ import java.util.List;
 @RequestMapping("/v1")
 @CrossOrigin("*")
 public class ChatController {
+    @Autowired
+    ChatMapper chatMapper;
+
+    @Autowired
+    ChatUserDbService chatUserDbService;
+
+    @Autowired
+    FriendsListDbService friendsListDbService;
+
+    @Autowired
+    ConvDbService convDbService;
+
+    @Autowired
+    MessageDbService messageDbService;
+
 
     @GetMapping("/chat/{userId}/friends")
     public List<ChatUserDto> getFriendsList(@PathVariable("userId") Long userId) {
@@ -33,7 +54,8 @@ public class ChatController {
     }
 
     @PostMapping("/chat/new")
-    public void createNewChatUser(ChatUserDto chatUserDto) {
+    public void createNewChatUser(@RequestBody ChatUserDto chatUserDto) {
+        chatUserDbService.save(chatMapper.mapToNEWChatUser(chatUserDto));
     }
 
     @DeleteMapping("/chat/")

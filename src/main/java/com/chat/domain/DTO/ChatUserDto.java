@@ -1,12 +1,14 @@
-package com.chat.domain;
+package com.chat.domain.DTO;
 
 import lombok.*;
+import org.springframework.stereotype.Component;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
 @Getter
 @Builder
+@Component
 public class ChatUserDto {
     private  Long id;
     private String name;
@@ -14,6 +16,6 @@ public class ChatUserDto {
     private String mail;
     private String password;
     private String city;
-    private boolean logged = false;
-
+    private boolean logged;
+    private FriendsListDto friendsListDto;
 }
