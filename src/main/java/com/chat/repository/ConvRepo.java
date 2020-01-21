@@ -16,4 +16,6 @@ public interface ConvRepo extends CrudRepository <Conversation, Long >{
 
     @Override
     void deleteById(Long id);
+
+   Optional<Conversation> findByParticipants(String p);
 }

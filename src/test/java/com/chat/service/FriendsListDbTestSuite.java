@@ -1,6 +1,7 @@
 package com.chat.service;
 
 import com.chat.domain.ChatUser;
+import com.chat.domain.DTO.ChatUserDto;
 import com.chat.domain.FriendsList;
 import com.chat.exception.FriendsListNotFoundException;
 import com.chat.repository.ChatUserRepo;
@@ -28,96 +29,49 @@ public class FriendsListDbTestSuite {
     @Test
     public void testFriendsListSaveToDb() {
         //Given
-        ChatUser user = new ChatUser("Dagmara", "Kopaczyk", "dagmara@mail", "haslo", "poznan", false);
-        ChatUser user2 = new ChatUser("Dadsadd", "Kopasdasda", "dagsdara@mail", "haslo", "ddddznan", false);
         FriendsList friendsList = new FriendsList();
-        friendsList.getFriends().add(user2);
 
         //When
-        chatUserDbService.save(user2);
-        chatUserDbService.save(user);
         friendsListDbService.saveFriendsList(friendsList);
-
-        Long userId = user.getId();
-        Long user2Id = user2.getId();
-        Long friendsListId = friendsList.getId();
-
-        int size = friendsList.getFriends().size();
+        Long id = friendsList.getId();
 
         //Then
-        Assert.assertEquals(1, size);
-
-        //CleanUp
-        friendsListDbService.deleteFriendsListById(friendsList.getId());
-        chatUserDbService.deleteById(user.getId());
-        chatUserDbService.deleteById(user2.getId());
+        Assert.assertNotNull(id);
     }
 
     @Test
     public void testFriendsListDelete() throws FriendsListNotFoundException {
         //Given
-        ChatUser user = new ChatUser("Dagmara", "Kopaczyk", "dagmara@mail", "haslo", "poznan", false);
-        ChatUser user2 = new ChatUser("Dadsadd", "Kopasdasda", "dagsdara@mail", "haslo", "ddddznan", false);
         FriendsList friendsList = new FriendsList();
-        friendsList.getFriends().add(user2);
 
         //When
-        chatUserDbService.save(user);
-        chatUserDbService.save(user2);
-
-        friendsListDbService.saveFriendsList(friendsList);
-
-        Long userId = user.getId();
-        Long user2Id = user2.getId();
-        Long friendsListId = friendsList.getId();
-
-        int size = friendsList.getFriends().size();
-
-        friendsListDbService.deleteFriendsListById(friendsListId);
+        FriendsList f =friendsListDbService.saveFriendsList(friendsList);
+        Long id = friendsList.getId();
         FriendsList deletedFriendsList;
         try {
-            deletedFriendsList = friendsListDbService.getFriendsListById(friendsListId);
+            deletedFriendsList = friendsListDbService.getFriendsListById(id);
         } catch (FriendsListNotFoundException e) {
             deletedFriendsList = null;
         }
 
         //Then
-        Assert.assertNotEquals(friendsList, deletedFriendsList);
-
-        //Clean-up
-        chatUserDbService.deleteById(userId);
-        chatUserDbService.deleteById(user2Id);
+        Assert.assertNotEquals(f, deletedFriendsList);
     }
 
     @Test
     public void testFriendsListFindById() throws FriendsListNotFoundException {
         //Given
-        ChatUser user = new ChatUser("Dagmara", "Kopaczyk", "dagmara@mail", "haslo", "poznan", false);
-        ChatUser user2 = new ChatUser("Dadsadd", "Kopasdasda", "dagsdara@mail", "haslo", "ddddznan", false);
         FriendsList friendsList = new FriendsList();
-        friendsList.getFriends().add(user2);
 
         //When
-        chatUserDbService.save(user);
-        chatUserDbService.save(user2);
-
         friendsListDbService.saveFriendsList(friendsList);
 
-        Long userId = user.getId();
-        Long user2Id = user2.getId();
-        Long friendsListId = friendsList.getId();
+        Long id = friendsList.getId();
 
-        int size = friendsList.getFriends().size();
-
-        FriendsList foundedList = friendsListDbService.getFriendsListById(friendsListId);
+        FriendsList foundedList = friendsListDbService.getFriendsListById(id);
 
         //Then
         Assert.assertNotNull(foundedList);
-
-        //Clean-up
-        friendsListDbService.deleteFriendsListById(friendsListId);
-        chatUserDbService.deleteById(userId);
-        chatUserDbService.deleteById(user2Id);
     }
 
 

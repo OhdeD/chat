@@ -23,4 +23,5 @@ public class Conversation {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Message> messages = new ArrayList<>();
+
 }

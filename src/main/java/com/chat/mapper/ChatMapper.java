@@ -10,6 +10,7 @@ import com.chat.domain.FriendsList;
 import com.chat.domain.Message;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
@@ -25,6 +26,7 @@ public class ChatMapper {
                 false,
                 mapToFriendsList(chatUserDto.getFriendsListDto()));
     }
+
     public ChatUser mapToNEWChatUser(ChatUserDto chatUserDto) {
         return new ChatUser(chatUserDto.getName(),
                 chatUserDto.getSurname(),
@@ -35,16 +37,22 @@ public class ChatMapper {
     }
 
     public ChatUserDto mapToChatUserDto(ChatUser chatUser) {
-        return ChatUserDto.builder()
-                .name(chatUser.getName())
-                .surname(chatUser.getSurname())
-                .mail(chatUser.getMail())
-                .password(chatUser.getPassword())
-                .city(chatUser.getCity())
-                .logged(chatUser.isLogged())
-                .friendsListDto(mapToFriendsListDto(chatUser.getFriendsList())).build();
+            return ChatUserDto.builder()
+                    .id(chatUser.getId())
+                    .name(chatUser.getName())
+                    .surname(chatUser.getSurname())
+                    .mail(chatUser.getMail())
+                    .password(chatUser.getPassword())
+                    .city(chatUser.getCity())
+                    .logged(chatUser.isLogged())
+                    .friendsListDto(mapToFriendsListDto(chatUser.getFriendsList())).build();
     }
 
+    public List<ChatUserDto> mapToChatUserDtoList(List<ChatUser> chatUserList) {
+        return chatUserList.stream()
+                .map(this::mapToChatUserDto)
+                .collect(Collectors.toList());
+    }
 
     public FriendsListDto mapToFriendsListDto(FriendsList friendsList) {
         return new FriendsListDto(friendsList.getId(), friendsList.getFriends().stream()
@@ -76,6 +84,12 @@ public class ChatMapper {
                 .message(message.getMessage())
                 .sendingDate(message.getSendingDate())
                 .conversationId(message.getConversationId()).build();
+    }
+
+    public List<MessageDto> mapToMessageDtoList(List<Message> l){
+        return l.stream()
+                .map(this::mapToMessageDto)
+                .collect(Collectors.toList());
     }
 
     public Conversation mapToConversation(ConversationDto conv) {

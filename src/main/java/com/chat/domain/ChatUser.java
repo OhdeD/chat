@@ -41,7 +41,7 @@ public class ChatUser {
     @Column
     private boolean logged;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne
     @JoinColumn(name = "FRIENDS_LIST_ID")
     private FriendsList friendsList;
 
