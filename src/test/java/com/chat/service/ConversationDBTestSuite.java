@@ -1,6 +1,9 @@
 package com.chat.service;
 
+import com.chat.domain.ChatUser;
 import com.chat.domain.Conversation;
+import com.chat.domain.DTO.ChatUserDto;
+import com.chat.domain.Message;
 import com.chat.exception.ConversationNotFoundException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,9 +18,13 @@ import static org.junit.Assert.*;
 public class ConversationDBTestSuite {
     @Autowired
     ConvDbService convDbService;
+    @Autowired
+    ChatUserDbService chatUserDbService;
+    @Autowired
+    MessageDbService messageDbService;
 
     @Test
-    public void testSaveToConvDb() {
+    public void testSave() {
         //Given
         Conversation conv = new Conversation();
         conv.setParticipants("user1-user2");
@@ -29,10 +36,9 @@ public class ConversationDBTestSuite {
     }
 
     @Test
-    public void testFindByIdFromConvDB() throws ConversationNotFoundException {
+    public void testFindById() throws ConversationNotFoundException {
         //Given
         Conversation conv = new Conversation();
-
         //When
         convDbService.save(conv);
         Conversation a;
@@ -41,7 +47,6 @@ public class ConversationDBTestSuite {
         } catch (ConversationNotFoundException e) {
             a = null;
         }
-
         //Then
         assertNotNull(a);
     }
@@ -50,7 +55,6 @@ public class ConversationDBTestSuite {
     public void testDeleteByIdFromConvDB() throws ConversationNotFoundException {
         //Given
         Conversation conv = new Conversation();
-
         //When
         convDbService.save(conv);
         Long id = conv.getId();
@@ -61,8 +65,64 @@ public class ConversationDBTestSuite {
         }catch (ConversationNotFoundException e){
             deleted = null;
         }
-
         //Then
         assertNull(deleted);
     }
+
+    @Test
+    public void testGetConversation(){
+        //Given
+        ChatUserDto user = ChatUserDto.builder()
+                .name("Dagmara")
+                .surname("KOpaczyk")
+                .mail("dagmara@mail")
+                .password("password")
+                .city("Poznan").build();
+        ChatUserDto user2 = ChatUserDto.builder()
+                .name("Ania")
+                .surname("Nowak")
+                .mail("aniaa@mail")
+                .password("password")
+                .city("Poznan").build();
+        Conversation conversation = new Conversation();
+        //When
+        ChatUser u =chatUserDbService.save(user);
+        ChatUser u2 = chatUserDbService.save(user2);
+        Long userId = u.getId();
+        Long user2Id = u2.getId();
+        String participants = userId + "-" + user2Id;
+        conversation.setParticipants(participants);
+        convDbService.save(conversation);
+        Conversation x = convDbService.getConversation(userId, user2Id);
+        //Then
+        assertNotNull(x);
+    }
+
+    @Test
+    public void testStartConversation(){
+        //Given
+        ChatUserDto user = ChatUserDto.builder()
+                .name("Dagmara")
+                .surname("KOpaczyk")
+                .mail("dagmara@mail")
+                .password("password")
+                .city("Poznan").build();
+        ChatUserDto user2 = ChatUserDto.builder()
+                .name("Ania")
+                .surname("Nowak")
+                .mail("aniaa@mail")
+                .password("password")
+                .city("Poznan").build();
+        //When
+        Long userId = chatUserDbService.save(user).getId();
+        Long user2Id = chatUserDbService.save(user2).getId();
+        String participants = userId + "-" + user2Id;
+
+        Conversation x = convDbService.startConversation(participants);
+        Long convId = x.getId();
+        //Then
+        assertNotNull(x);
+        assertNotNull(convId);
+    }
+
 }

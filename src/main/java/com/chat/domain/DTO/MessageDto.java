@@ -3,6 +3,7 @@ package com.chat.domain.DTO;
 import com.chat.domain.Conversation;
 import lombok.*;
 
+import javax.persistence.Column;
 import java.time.LocalDateTime;
 
 @AllArgsConstructor
@@ -17,4 +18,5 @@ public class MessageDto {
     private String message;
     private LocalDateTime sendingDate;
     private Long conversationId;
+    private boolean read;
 }

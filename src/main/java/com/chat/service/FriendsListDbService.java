@@ -5,6 +5,8 @@ import com.chat.domain.FriendsList;
 import com.chat.exception.ChatUserNotFoundException;
 import com.chat.exception.FriendsListNotFoundException;
 import com.chat.repository.FriendsListRepo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,7 @@ public class FriendsListDbService {
     FriendsListRepo friendsListRepo;
     @Autowired
     ChatUserDbService chatUserDbService;
+    private static final Logger LOGGER = LoggerFactory.getLogger (FriendsListDbService.class);
 
     public FriendsList saveFriendsList(final FriendsList friendsList) {
         return friendsListRepo.save(friendsList);
@@ -27,6 +30,7 @@ public class FriendsListDbService {
         FriendsList f = chatUserDbService.findById(id).getFriendsList();
         f.getFriends().add(u2);
         friendsListRepo.save(f);
+        LOGGER.info("Friend added to " + chatUserDbService.findById(id).getName() + "'s friends list");
         return f.getFriends();
     }
 

@@ -18,6 +18,6 @@ public class FriendsList {
     @Column(name = "FRIENDSLIST_ID")
     private long id;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private List<ChatUser> friends = new ArrayList<>();
 }

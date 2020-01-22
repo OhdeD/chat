@@ -37,15 +37,15 @@ public class ChatMapper {
     }
 
     public ChatUserDto mapToChatUserDto(ChatUser chatUser) {
-            return ChatUserDto.builder()
-                    .id(chatUser.getId())
-                    .name(chatUser.getName())
-                    .surname(chatUser.getSurname())
-                    .mail(chatUser.getMail())
-                    .password(chatUser.getPassword())
-                    .city(chatUser.getCity())
-                    .logged(chatUser.isLogged())
-                    .friendsListDto(mapToFriendsListDto(chatUser.getFriendsList())).build();
+        return ChatUserDto.builder()
+                .id(chatUser.getId())
+                .name(chatUser.getName())
+                .surname(chatUser.getSurname())
+                .mail(chatUser.getMail())
+                .password(chatUser.getPassword())
+                .city(chatUser.getCity())
+                .logged(chatUser.isLogged())
+                .friendsListDto(mapToFriendsListDto(chatUser.getFriendsList())).build();
     }
 
     public List<ChatUserDto> mapToChatUserDtoList(List<ChatUser> chatUserList) {
@@ -73,7 +73,7 @@ public class ChatMapper {
     }
 
     public Message mapToMessage(MessageDto messageDto) {
-        return new Message(messageDto.getSenderId(), messageDto.getSenderId(), messageDto.getRecieverId(), messageDto.getMessage(), messageDto.getSendingDate(), messageDto.getConversationId());
+        return new Message(messageDto.getSenderId(), messageDto.getSenderId(), messageDto.getRecieverId(), messageDto.getMessage(), messageDto.getSendingDate(), messageDto.getConversationId(), messageDto.isRead());
     }
 
     public MessageDto mapToMessageDto(Message message) {
@@ -83,10 +83,11 @@ public class ChatMapper {
                 .recieverId(message.getRecieverId())
                 .message(message.getMessage())
                 .sendingDate(message.getSendingDate())
-                .conversationId(message.getConversationId()).build();
+                .conversationId(message.getConversationId())
+                .read(message.isRead()).build();
     }
 
-    public List<MessageDto> mapToMessageDtoList(List<Message> l){
+    public List<MessageDto> mapToMessageDtoList(List<Message> l) {
         return l.stream()
                 .map(this::mapToMessageDto)
                 .collect(Collectors.toList());

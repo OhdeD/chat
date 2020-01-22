@@ -25,7 +25,7 @@ public class ChatUserDbService {
     private static final Logger LOGGER = LoggerFactory.getLogger (ChatUserDbService.class);
 
     public ChatUser save(ChatUserDto chatUserDto) {
-        LOGGER.info("Creating empty FriendsList");
+        LOGGER.info("Creating empty FriendsList and asigning it to " + chatUserDto.getName());
         FriendsList friendsList = new FriendsList();
         friendsListDbService.saveFriendsList(friendsList);
         ChatUser user = chatMapper.mapToNEWChatUser(chatUserDto);

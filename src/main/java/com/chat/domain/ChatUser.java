@@ -1,5 +1,6 @@
 package com.chat.domain;
 
+import com.chat.observer.Observer;
 import lombok.*;
 
 import javax.persistence.*;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ChatUser {
+public class ChatUser  {
     @Id
     @NotNull
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -63,4 +64,6 @@ public class ChatUser {
         this.city = city;
         this.logged = logged;
     }
+
+
 }
