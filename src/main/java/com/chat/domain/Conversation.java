@@ -1,8 +1,5 @@
 package com.chat.domain;
 
-import com.chat.exception.ChatUserNotFoundException;
-import com.chat.observer.Observable;
-import com.chat.observer.Observer;
 import lombok.*;
 
 import javax.persistence.*;
@@ -24,7 +21,7 @@ public class Conversation {
     @Column(name = "PARTICIPANTS")
     private String participants;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = Message.class)
     private List<Message> messages = new ArrayList<>();
 
 

@@ -4,11 +4,6 @@ import com.chat.domain.DTO.ChatUserDto;
 import com.chat.domain.DTO.MessageDto;
 import com.chat.exception.ChatUserNotFoundException;
 import com.chat.fasada.Fasada;
-import com.chat.mapper.ChatMapper;
-import com.chat.service.ChatUserDbService;
-import com.chat.service.ConvDbService;
-import com.chat.service.FriendsListDbService;
-import com.chat.service.MessageDbService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +18,11 @@ public class ChatController {
 
     @PostMapping("/chat/new")
     public void createNewChatUser(@RequestBody ChatUserDto chatUserDto) {
+        fasada.saveUser(chatUserDto);
+    }
+
+    @PutMapping("/chat/{userId}")
+    public void updateChatUser(@RequestBody ChatUserDto chatUserDto) {
         fasada.saveUser(chatUserDto);
     }
 
@@ -57,7 +57,18 @@ public class ChatController {
     }
 
     @DeleteMapping("/chat/{userId}")
-    public void deletePost(@PathVariable("userId") Long userId, @RequestParam Long messgeId) {
+    public void deletePost(@PathVariable("userId") Long userId, @RequestParam("messageId") Long messgeId) {
         fasada.deletePost(userId, messgeId);
     }
+
+    @DeleteMapping("/chat/admin")
+    public void deleteUser(@RequestParam("userId") Long userId){
+        fasada.deleteUser(userId);
+    }
+
+    @GetMapping("/chat/admin/allUsers")
+    public List<ChatUserDto> getAllUsers(){
+        return fasada.getAllUsers();
+    }
+    //+Actuator endpoints
 }

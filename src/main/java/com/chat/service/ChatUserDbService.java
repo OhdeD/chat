@@ -22,7 +22,7 @@ public class ChatUserDbService {
     @Autowired
     ChatMapper chatMapper;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger (ChatUserDbService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ChatUserDbService.class);
 
     public ChatUser save(ChatUserDto chatUserDto) {
         LOGGER.info("Creating empty FriendsList and asigning it to " + chatUserDto.getName());
@@ -30,11 +30,8 @@ public class ChatUserDbService {
         friendsListDbService.saveFriendsList(friendsList);
         ChatUser user = chatMapper.mapToNEWChatUser(chatUserDto);
         user.setFriendsList(friendsList);
+        LOGGER.info("User added to DB");
         return chatUserRepo.save(user);
-    }
-
-    public void deleteById(Long id) {
-        chatUserRepo.deleteById(id);
     }
 
     public ChatUser findById(Long id) throws ChatUserNotFoundException {
@@ -43,5 +40,29 @@ public class ChatUserDbService {
 
     public List<ChatUser> findAllByName(String name) throws ChatUserNotFoundException {
         return chatUserRepo.findAllByName(name).orElseThrow(ChatUserNotFoundException::new);
+    }
+
+    public List<ChatUser> getAllUsers() {
+        return chatUserRepo.getAllUsers();
+    }
+
+    public void delete(Long userId) {
+        try {
+            ChatUser u = findById(userId);
+            Long id = u.getFriendsList().getId();
+            chatUserRepo.deleteById(userId);
+            LOGGER.info("User deleted.");
+            friendsListDbService.deleteFriendsListById(id);
+            LOGGER.info("User's friends list deleted.");
+        } catch (ChatUserNotFoundException e) {
+            LOGGER.warn("There's no such user");
+        }
+    }
+
+    public String findCity(Long userId) {
+        ChatUser u = chatUserRepo.findById(userId).get();
+        if (u.getCity() != null) {
+            return u.getCity();
+        } else return "Warszawa";
     }
 }

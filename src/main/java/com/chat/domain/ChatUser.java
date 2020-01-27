@@ -1,12 +1,9 @@
 package com.chat.domain;
 
-import com.chat.observer.Observer;
 import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-
 @Entity
 @Getter
 @Setter
@@ -43,7 +40,7 @@ public class ChatUser  {
     private boolean logged;
 
     @OneToOne
-    @JoinColumn(name = "FRIENDS_LIST_ID")
+    @JoinColumn( name = "FRIENDS_LIST_ID")
     private FriendsList friendsList;
 
     public ChatUser(String name, String surname, String mail, String password, String city, boolean logged) {

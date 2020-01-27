@@ -80,7 +80,7 @@ public class ChatMapper {
         return MessageDto.builder()
                 .id(message.getId())
                 .senderId(message.getSenderId())
-                .recieverId(message.getRecieverId())
+                .recieverId(message.getReceiverId())
                 .message(message.getMessage())
                 .sendingDate(message.getSendingDate())
                 .conversationId(message.getConversationId())

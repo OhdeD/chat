@@ -63,7 +63,7 @@ public class ChatDbTestSuite {
         //When
         ChatUser u = chatUserDbService.save(user);
         Long userId = u.getId();
-        chatUserDbService.deleteById(userId);
+        chatUserDbService.delete(userId);
         ChatUser deletedUser1;
         try {
             deletedUser1 = chatUserDbService.findById(userId);
