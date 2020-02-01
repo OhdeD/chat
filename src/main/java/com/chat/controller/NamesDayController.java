@@ -15,7 +15,7 @@ public class NamesDayController {
 
     @GetMapping("/today")
     public String getTodayNames(){
-        return nameDayClient.getTodaysNames();
+        return nameDayClient.getTodayNames();
     }
     @GetMapping("/tomorrow")
     public String getTomorrowNames(){

@@ -17,9 +17,8 @@ configurations {
 repositories {
 	mavenCentral()
 }
-
 dependencies {
-//	compile 'org.springframework.boot:spring-boot-starter-security'
+	compile 'org.springframework.boot:spring-boot-starter-security'
 	compile 'org.springframework.boot:spring-boot-starter-web'
 	compile 'org.springframework.boot:spring-boot-starter-data-jpa'
 	compile 'org.springframework.boot:spring-boot-starter-actuator'
@@ -35,9 +34,10 @@ dependencies {
 	}
 
 	implementation 'junit:junit:4.12'
-//	testImplementation 'org.springframework.security:spring-security-test'
+	testImplementation 'org.springframework.security:spring-security-test'
 
 	runtimeOnly('com.h2database:h2')
 	testCompile group: 'com.h2database', name: 'h2'
 
 }
+

@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.GetMapping;
 
 @Component
 @AllArgsConstructor
@@ -16,8 +15,4 @@ public class NameDayConfig {
     private String today;
     @Value("${nameDay.api.endpoint.tomorrow}")
     private String tomorrow;
-
-
-
-
 }

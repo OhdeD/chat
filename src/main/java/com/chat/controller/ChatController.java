@@ -2,6 +2,7 @@ package com.chat.controller;
 
 import com.chat.domain.DTO.ChatUserDto;
 import com.chat.domain.DTO.MessageDto;
+import com.chat.domain.DTO.RolesDto;
 import com.chat.exception.ChatUserNotFoundException;
 import com.chat.fasada.Fasada;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,5 +71,16 @@ public class ChatController {
     public List<ChatUserDto> getAllUsers(){
         return fasada.getAllUsers();
     }
+
+    @PutMapping("chat/admin")
+    public RolesDto setRole(@RequestParam("userId") Long userId, @RequestParam("role") String role){
+        return fasada.setRole(userId, role);
+    }
+
+    @GetMapping("chat/admin")
+    public RolesDto getRole(@RequestParam("userId") Long userId){
+        return fasada.getRole(userId);
+    }
+
     //+Actuator endpoints
 }

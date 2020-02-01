@@ -3,12 +3,10 @@ package com.chat.fasada;
 import com.chat.domain.ChatUser;
 import com.chat.domain.DTO.ChatUserDto;
 import com.chat.domain.DTO.MessageDto;
+import com.chat.domain.DTO.RolesDto;
 import com.chat.exception.ChatUserNotFoundException;
 import com.chat.mapper.ChatMapper;
-import com.chat.service.ChatUserDbService;
-import com.chat.service.ConvDbService;
-import com.chat.service.FriendsListDbService;
-import com.chat.service.MessageDbService;
+import com.chat.service.*;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +24,8 @@ public class Fasada {
     ConvDbService convDbService;
     @Autowired
     MessageDbService messageDbService;
+    @Autowired
+    RolesDBService rolesDBService;
 
     public void saveUser(ChatUserDto chatUserDto) {
         chatUserDbService.save(chatUserDto);
@@ -55,5 +55,18 @@ public class Fasada {
 
     public void deleteUser(Long userId) {
        chatUserDbService.delete(userId);
+    }
+
+    public RolesDto setRole(Long userId, String role) {
+        return chatMapper.mapToRolesDto(rolesDBService.assignNewRole(userId, role));
+    }
+
+    public RolesDto getRole(Long userId) {
+        try {
+            return chatMapper.mapToRolesDto(rolesDBService.findBYChatUser(chatUserDbService.findById(userId)));
+        }catch (ChatUserNotFoundException e){
+            e.getMessage();
+            return new RolesDto();
+        }
     }
 }

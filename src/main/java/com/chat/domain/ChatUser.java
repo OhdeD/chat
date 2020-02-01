@@ -28,7 +28,7 @@ public class ChatUser  {
     @NotNull
     private String mail;
 
-    @Column
+    @Column(length = 100)
     @NotNull
     private String password;
 

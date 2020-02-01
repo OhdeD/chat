@@ -1,20 +1,19 @@
 package com.chat.mapper;
 
-import com.chat.domain.ChatUser;
-import com.chat.domain.Conversation;
-import com.chat.domain.DTO.ChatUserDto;
-import com.chat.domain.DTO.ConversationDto;
-import com.chat.domain.DTO.FriendsListDto;
-import com.chat.domain.DTO.MessageDto;
-import com.chat.domain.FriendsList;
-import com.chat.domain.Message;
+import com.chat.domain.*;
+import com.chat.domain.DTO.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.net.PasswordAuthentication;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
 public class ChatMapper {
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     public ChatUser mapToChatUser(ChatUserDto chatUserDto) {
         return new ChatUser(chatUserDto.getId(),
@@ -31,9 +30,9 @@ public class ChatMapper {
         return new ChatUser(chatUserDto.getName(),
                 chatUserDto.getSurname(),
                 chatUserDto.getMail(),
-                chatUserDto.getPassword(),
+                passwordEncoder.encode(chatUserDto.getPassword()),
                 chatUserDto.getCity(),
-                false);
+                true);
     }
 
     public ChatUserDto mapToChatUserDto(ChatUser chatUser) {
@@ -106,6 +105,17 @@ public class ChatMapper {
                 .messages(conv.getMessages().stream()
                         .map(this::mapToMessageDto)
                         .collect(Collectors.toList())).build();
+    }
+
+    public RolesDto mapToRolesDto(Roles r){
+        return new RolesDto().builder()
+                .id(r.getId())
+                .chatUser(r.getChatUser())
+                .role(r.getRole()).build();
+    }
+
+    public Roles mapToRoles (RolesDto r){
+        return new Roles(r.getId(), r.getRole(), r.getChatUser());
     }
 
 }

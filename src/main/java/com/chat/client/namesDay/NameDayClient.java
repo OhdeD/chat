@@ -19,7 +19,7 @@ public class NameDayClient {
     NameDayConfig nameDayConfig;
     private static final Logger LOGGER = LoggerFactory.getLogger(NameDayClient.class);
 
-    public String getTodaysNames() {
+    public String getTodayNames() {
         URI url = UriComponentsBuilder.fromHttpUrl(nameDayConfig.getToday())
                 .queryParam("country", "pl")
                 .queryParam("timezone", "Europe/Amsterdam").build().encode().toUri();
