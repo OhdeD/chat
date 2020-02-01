@@ -6,6 +6,7 @@ import com.chat.domain.DTO.RolesDto;
 import com.chat.exception.ChatUserNotFoundException;
 import com.chat.fasada.Fasada;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -78,6 +79,7 @@ public class ChatController {
     }
 
     @GetMapping("chat/admin")
+//    @PreAuthorize("hasRole('ADMIN')")
     public RolesDto getRole(@RequestParam("userId") Long userId){
         return fasada.getRole(userId);
     }

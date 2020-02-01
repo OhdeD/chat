@@ -23,7 +23,7 @@ public class ChatUserDbService {
     @Autowired
     ChatMapper chatMapper;
     @Autowired
-    RolesDBService  rolesDBService;
+    RolesDBService rolesDBService;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ChatUserDbService.class);
 
@@ -34,29 +34,21 @@ public class ChatUserDbService {
         ChatUser user = chatMapper.mapToNEWChatUser(chatUserDto);
         user.setFriendsList(friendsList);
         ChatUser createdUser = chatUserRepo.save(user);
+        Long userId = createdUser.getId();
         LOGGER.info("User added to DB");
         Roles r = new Roles();
         r.setChatUser(user);
-        r.setRole("USER");
-        LOGGER.info("role \"USER\" has been assigned");
+        if (userId == 2) {
+            r.setRole("ROLE_ADMIN");
+            LOGGER.info("role \"ADMIN\" has been assigned");
+        } else {
+            r.setRole("USER");
+            LOGGER.info("role \"USER\" has been assigned");
+        }
         rolesDBService.save(r);
         return createdUser;
     }
-    public ChatUser saveAdmin(ChatUserDto chatUserDto) {
-        LOGGER.info("Creating empty FriendsList and assigning it to " + chatUserDto.getName());
-        FriendsList friendsList = new FriendsList();
-        friendsListDbService.saveFriendsList(friendsList);
-        ChatUser user = chatMapper.mapToNEWChatUser(chatUserDto);
-        user.setFriendsList(friendsList);
-        ChatUser createdUser = chatUserRepo.save(user);
-        LOGGER.info("User added to DB");
-        Roles r = new Roles();
-        r.setChatUser(user);
-        r.setRole("ADMIN");
-        LOGGER.info("role \"ADMIN\" has been assigned");
-        rolesDBService.save(r);
-        return createdUser;
-    }
+
 
     public ChatUser findById(Long id) throws ChatUserNotFoundException {
         return chatUserRepo.findById(id).orElseThrow(ChatUserNotFoundException::new);
@@ -74,7 +66,7 @@ public class ChatUserDbService {
         try {
             ChatUser u = findById(userId);
             Long id = u.getFriendsList().getId();
-            Roles r =rolesDBService.findBYChatUser(u);
+            Roles r = rolesDBService.findBYChatUser(u);
             rolesDBService.delete(r);
             chatUserRepo.deleteById(userId);
             LOGGER.info("User deleted.");
