@@ -10,9 +10,13 @@ import com.chat.repository.ChatUserRepo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+import static java.util.Optional.ofNullable;
 
 @Service
 public class ChatUserDbService {
@@ -34,18 +38,8 @@ public class ChatUserDbService {
         ChatUser user = chatMapper.mapToNEWChatUser(chatUserDto);
         user.setFriendsList(friendsList);
         ChatUser createdUser = chatUserRepo.save(user);
-        Long userId = createdUser.getId();
         LOGGER.info("User added to DB");
-        Roles r = new Roles();
-        r.setChatUser(user);
-        if (userId == 2) {
-            r.setRole("ROLE_ADMIN");
-            LOGGER.info("role \"ADMIN\" has been assigned");
-        } else {
-            r.setRole("USER");
-            LOGGER.info("role \"USER\" has been assigned");
-        }
-        rolesDBService.save(r);
+        rolesDBService.create(createdUser);
         return createdUser;
     }
 
@@ -82,5 +76,19 @@ public class ChatUserDbService {
         if (u.getCity() != null) {
             return u.getCity();
         } else return "Warszawa";
+    }
+
+    public String getCurrentUser() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (principal instanceof UserDetails) {
+            return ((UserDetails) principal).getUsername();
+        } else {
+            return principal.toString();
+        }
+    }
+
+    public ChatUser findByMail(String mail) {
+        return ofNullable(chatUserRepo.findByMail(mail)).orElse(new ChatUser());
     }
 }

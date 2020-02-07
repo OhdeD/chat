@@ -18,4 +18,5 @@ public interface RolesRepo extends CrudRepository<Roles, Long> {
     Optional<Roles> findById(Long id);
 
     Roles findByChatUser(ChatUser u);
+    Roles findByRole(String role);
 }

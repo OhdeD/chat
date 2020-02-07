@@ -33,6 +33,9 @@ public interface ChatUserRepo extends CrudRepository<ChatUser, Long> {
     @Modifying
     @Query(value = "SELECT * FROM CHAT_USER ;", nativeQuery = true)
     List<ChatUser> getAllUsers();
+
+    ChatUser findByMail(String mail);
+
 }
 
 

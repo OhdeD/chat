@@ -46,4 +46,18 @@ public class RolesDBService {
     public void delete(Roles r){
         rolesRepo.delete(r);
     }
+
+    public Roles create(ChatUser user){
+        Roles r = new Roles();
+        r.setChatUser(user);
+        if (user.getId() == 2) {
+            r.setRole("ROLE_ADMIN");
+            LOGGER.info("role \"ADMIN\" has been assigned");
+        } else {
+            r.setRole("USER");
+            LOGGER.info("role \"USER\" has been assigned");
+        }
+        save(r);
+        return r;
+    }
 }

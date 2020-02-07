@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - Class com.chat.service.MessageDbTestSuite</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>Class com.chat.service.MessageDbTestSuite</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/com.chat.service.html">com.chat.service</a> &gt; MessageDbTestSuite</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">3</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">0.636s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Tests</a>
+</li>
+<li>
+<a href="#tab1">Standard output</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">testDeleteMessageFromDb</td>
+<td class="success">0.215s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testFindByIdMessageFromDb</td>
+<td class="success">0.209s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testSaveMessageToDb</td>
+<td class="success">0.212s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div id="tab1" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>2020-02-07 23:32:11.444  INFO 13144 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.chat.service.MessageDbTestSuite], using SpringBootContextLoader
+2020-02-07 23:32:11.444  INFO 13144 --- [    Test worker] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [com.chat.service.MessageDbTestSuite]: no resource found for suffixes {-context.xml, Context.groovy}.
+2020-02-07 23:32:11.445  INFO 13144 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.chat.service.MessageDbTestSuite]: MessageDbTestSuite does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2020-02-07 23:32:11.446  INFO 13144 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.chat.ChatApplication for test class com.chat.service.MessageDbTestSuite
+2020-02-07 23:32:11.448  INFO 13144 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener, org.springframework.security.test.context.support.ReactorContextTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+2020-02-07 23:32:11.448  INFO 13144 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@1537d197, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@7ccc08cc, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@2e3373e3, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@4281db6d, org.springframework.test.context.support.DirtiesContextTestExecutionListener@691101c3, org.springframework.test.context.transaction.TransactionalTestExecutionListener@7587ee45, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@409e277d, org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener@c88d6b0, org.springframework.test.context.event.EventPublishingTestExecutionListener@6d76c1fb, org.springframework.security.test.context.support.ReactorContextTestExecutionListener@27c9ffd6, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@165d919d, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@5caaf8b0, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@70883c7, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@6f57fbbf, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@157c5eb1]
+2020-02-07 23:32:11.453  INFO 13144 --- [    Test worker] com.chat.service.ChatUserDbService       : Creating empty FriendsList and assigning it to Dagmara
+2020-02-07 23:32:11.550  INFO 13144 --- [    Test worker] com.chat.service.ChatUserDbService       : User added to DB
+2020-02-07 23:32:11.550  INFO 13144 --- [    Test worker] com.chat.service.RolesDBService          : role &quot;USER&quot; has been assigned
+2020-02-07 23:32:11.552  INFO 13144 --- [    Test worker] com.chat.service.ChatUserDbService       : Creating empty FriendsList and assigning it to Ania
+2020-02-07 23:32:11.649  INFO 13144 --- [    Test worker] com.chat.service.ChatUserDbService       : User added to DB
+2020-02-07 23:32:11.650  INFO 13144 --- [    Test worker] com.chat.service.RolesDBService          : role &quot;USER&quot; has been assigned
+2020-02-07 23:32:11.652  INFO 13144 --- [    Test worker] com.chat.service.ConvDbService           : Starting new conversation
+2020-02-07 23:32:11.655  INFO 13144 --- [    Test worker] com.chat.service.ConvDbService           : Conversation found
+2020-02-07 23:32:11.667  INFO 13144 --- [    Test worker] com.chat.service.ChatUserDbService       : Creating empty FriendsList and assigning it to Dagmara
+2020-02-07 23:32:11.764  INFO 13144 --- [    Test worker] com.chat.service.ChatUserDbService       : User added to DB
+2020-02-07 23:32:11.764  INFO 13144 --- [    Test worker] com.chat.service.RolesDBService          : role &quot;USER&quot; has been assigned
+2020-02-07 23:32:11.766  INFO 13144 --- [    Test worker] com.chat.service.ChatUserDbService       : Creating empty FriendsList and assigning it to Ania
+2020-02-07 23:32:11.862  INFO 13144 --- [    Test worker] com.chat.service.ChatUserDbService       : User added to DB
+2020-02-07 23:32:11.862  INFO 13144 --- [    Test worker] com.chat.service.RolesDBService          : role &quot;USER&quot; has been assigned
+2020-02-07 23:32:11.864  INFO 13144 --- [    Test worker] com.chat.service.ConvDbService           : Starting new conversation
+2020-02-07 23:32:11.867  INFO 13144 --- [    Test worker] com.chat.service.ConvDbService           : Conversation found
+2020-02-07 23:32:11.883  INFO 13144 --- [    Test worker] com.chat.service.ChatUserDbService       : Creating empty FriendsList and assigning it to Dagmara
+2020-02-07 23:32:11.981  INFO 13144 --- [    Test worker] com.chat.service.ChatUserDbService       : User added to DB
+2020-02-07 23:32:11.982  INFO 13144 --- [    Test worker] com.chat.service.RolesDBService          : role &quot;USER&quot; has been assigned
+2020-02-07 23:32:11.983  INFO 13144 --- [    Test worker] com.chat.service.ChatUserDbService       : Creating empty FriendsList and assigning it to Ania
+2020-02-07 23:32:12.079  INFO 13144 --- [    Test worker] com.chat.service.ChatUserDbService       : User added to DB
+2020-02-07 23:32:12.080  INFO 13144 --- [    Test worker] com.chat.service.RolesDBService          : role &quot;USER&quot; has been assigned
+2020-02-07 23:32:12.082  INFO 13144 --- [    Test worker] com.chat.service.ConvDbService           : Starting new conversation
+2020-02-07 23:32:12.085  INFO 13144 --- [    Test worker] com.chat.service.ConvDbService           : Conversation found
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="http://www.gradle.org">Gradle 6.0.1</a> at 2020-02-07 23:32:12</p>
+</div>
+</div>
+</body>
+</html>

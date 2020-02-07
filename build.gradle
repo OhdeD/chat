@@ -39,5 +39,8 @@ dependencies {
 	runtimeOnly('com.h2database:h2')
 	testCompile group: 'com.h2database', name: 'h2'
 
+	bootRun {
+		systemProperty "spring.profiles.active", "encodedjdbcpassword"
+	}
 }
 

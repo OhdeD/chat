@@ -6,7 +6,6 @@ import com.chat.domain.DTO.RolesDto;
 import com.chat.exception.ChatUserNotFoundException;
 import com.chat.fasada.Fasada;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,12 +18,12 @@ public class ChatController {
     Fasada fasada;
 
     @PostMapping("/chat/new")
-    public void createNewChatUser(@RequestBody ChatUserDto chatUserDto) {
-        fasada.saveUser(chatUserDto);
+    public ChatUserDto createNewChatUser(@RequestBody ChatUserDto chatUserDto) {
+        return fasada.saveUser(chatUserDto);
     }
 
     @PutMapping("/chat/{userId}")
-    public void updateChatUser(@RequestBody ChatUserDto chatUserDto) {
+    public void updateChatUser(@PathVariable("userId") Long userId, @RequestBody ChatUserDto chatUserDto) {
         fasada.saveUser(chatUserDto);
     }
 
@@ -53,6 +52,11 @@ public class ChatController {
         return fasada.getUserByName(userId, name);
     }
 
+    @GetMapping("/chat/search")
+    public ChatUserDto getUserByMail(@RequestParam String mail) throws ChatUserNotFoundException {
+        return fasada.getUserByMail(mail);
+    }
+
     @PostMapping("/chat/{userId}/{userId2}")
     public void sendPost(@PathVariable("userId") Long userId, @PathVariable("userId2") Long userId2, @RequestParam String message) throws ChatUserNotFoundException {
         fasada.sendPost(userId, userId2, message);
@@ -79,9 +83,13 @@ public class ChatController {
     }
 
     @GetMapping("chat/admin")
-//    @PreAuthorize("hasRole('ADMIN')")
     public RolesDto getRole(@RequestParam("userId") Long userId){
         return fasada.getRole(userId);
+    }
+
+    @GetMapping("/currentUser")
+    public String getCurrentUser(){
+        return fasada.getCurrentUser();
     }
 
     //+Actuator endpoints

@@ -1,13 +1,11 @@
 package com.chat.fasada;
 
-import com.chat.domain.ChatUser;
 import com.chat.domain.DTO.ChatUserDto;
 import com.chat.domain.DTO.MessageDto;
 import com.chat.domain.DTO.RolesDto;
 import com.chat.exception.ChatUserNotFoundException;
 import com.chat.mapper.ChatMapper;
 import com.chat.service.*;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -27,8 +25,8 @@ public class Fasada {
     @Autowired
     RolesDBService rolesDBService;
 
-    public void saveUser(ChatUserDto chatUserDto) {
-        chatUserDbService.save(chatUserDto);
+    public ChatUserDto saveUser(ChatUserDto chatUserDto) {
+        return chatMapper.mapToChatUserDto(chatUserDbService.save(chatUserDto));
     }
     public List<ChatUserDto> getFriendsList(Long userId) throws ChatUserNotFoundException {
         return chatMapper.mapToChatUserDtoList(chatUserDbService.findById(userId).getFriendsList().getFriends());
@@ -68,5 +66,13 @@ public class Fasada {
             e.getMessage();
             return new RolesDto();
         }
+    }
+
+    public String getCurrentUser() {
+       return chatUserDbService.getCurrentUser();
+    }
+
+    public ChatUserDto getUserByMail(String mail) throws ChatUserNotFoundException {
+        return chatMapper.mapToChatUserDto(chatUserDbService.findByMail(mail));
     }
 }

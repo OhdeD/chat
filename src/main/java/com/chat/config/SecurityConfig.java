@@ -38,14 +38,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/resources/**").permitAll()
                 .antMatchers("/v1/chat/new").permitAll()
-//                .antMatchers("/h2-console/**").permitAll()
-                .antMatchers( "/h2-console/**", "/v1/chat/admin", "/v1/chat/admin/**").access("hasRole('ADMIN')")
+                .antMatchers("/h2-console/**").permitAll()
+                .antMatchers(  "/v1/chat/admin", "/v1/chat/admin/**").hasRole("ADMIN")
+                .anyRequest().authenticated()
                 .and()
                 .formLogin().permitAll()
                 .and().rememberMe()
                 .tokenValiditySeconds(1209600).and().csrf().disable()
                 .headers().frameOptions().disable();
+
     }
-
-
 }
