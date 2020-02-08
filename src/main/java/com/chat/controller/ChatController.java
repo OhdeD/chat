@@ -6,6 +6,7 @@ import com.chat.domain.DTO.RolesDto;
 import com.chat.exception.ChatUserNotFoundException;
 import com.chat.fasada.Fasada;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -91,6 +92,8 @@ public class ChatController {
     public String getCurrentUser(){
         return fasada.getCurrentUser();
     }
+
+
 
     //+Actuator endpoints
 }

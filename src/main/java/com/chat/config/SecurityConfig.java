@@ -2,13 +2,17 @@
 package com.chat.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 
 import javax.sql.DataSource;
 
@@ -37,15 +41,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/resources/**").permitAll()
-                .antMatchers("/v1/chat/new").permitAll()
+                .antMatchers("/v1/chat/new", "/v1/currentUser").permitAll()
                 .antMatchers("/h2-console/**").permitAll()
-                .antMatchers(  "/v1/chat/admin", "/v1/chat/admin/**").hasRole("ADMIN")
+                .antMatchers("/v1/chat/admin", "/v1/chat/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().permitAll()
                 .and().rememberMe()
                 .tokenValiditySeconds(1209600).and().csrf().disable()
                 .headers().frameOptions().disable();
-
     }
 }
