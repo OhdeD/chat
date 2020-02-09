@@ -4,6 +4,7 @@ import com.chat.domain.ChatUser;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,12 +31,14 @@ public interface ChatUserRepo extends CrudRepository<ChatUser, Long> {
 
     Optional<List<ChatUser>> findAllByName(String name);
 
-    @Modifying
     @Query(value = "SELECT * FROM CHAT_USER ;", nativeQuery = true)
     List<ChatUser> getAllUsers();
 
-    ChatUser findByMail(String mail);
+    Optional<ChatUser> findByMailAndPassword(String mail, String password);
 
+    @Query(value = "SELECT * FROM CHAT_USER u WHERE u.name LIKE :name or u.surname LIKE :name",
+            nativeQuery = true)
+    Optional<List<ChatUser>> findAllByNameOrSurname(@Param("name") String name);
 }
 
 

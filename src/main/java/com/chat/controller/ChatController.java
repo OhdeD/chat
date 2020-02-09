@@ -6,7 +6,7 @@ import com.chat.domain.DTO.RolesDto;
 import com.chat.exception.ChatUserNotFoundException;
 import com.chat.fasada.Fasada;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
+//import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -53,11 +53,6 @@ public class ChatController {
         return fasada.getUserByName(userId, name);
     }
 
-    @GetMapping("/chat/search")
-    public ChatUserDto getUserByMail(@RequestParam String mail) throws ChatUserNotFoundException {
-        return fasada.getUserByMail(mail);
-    }
-
     @PostMapping("/chat/{userId}/{userId2}")
     public void sendPost(@PathVariable("userId") Long userId, @PathVariable("userId2") Long userId2, @RequestParam String message) throws ChatUserNotFoundException {
         fasada.sendPost(userId, userId2, message);
@@ -88,12 +83,9 @@ public class ChatController {
         return fasada.getRole(userId);
     }
 
-    @GetMapping("/currentUser")
-    public String getCurrentUser(){
-        return fasada.getCurrentUser();
+    @PostMapping("/login")
+    public ChatUserDto login(@RequestParam ("mail") String mail, @RequestParam ("password") String password){
+        return fasada.login(mail, password);
     }
-
-
-
     //+Actuator endpoints
 }

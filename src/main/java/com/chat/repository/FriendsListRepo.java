@@ -12,8 +12,6 @@ public interface FriendsListRepo extends CrudRepository<FriendsList, Long> {
     @Override
     FriendsList save(final FriendsList friendsList);
 
-
-
     @Override
     Optional<FriendsList> findById(Long id);
 

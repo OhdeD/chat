@@ -29,12 +29,13 @@ public class AccuWeatherClient {
                 .queryParam("apikey", accuConfig.getWeatherKey())
                 .queryParam("q", localization)
                 .queryParam("language", accuConfig.getWeatherLanguage()).build().encode().toUri();
-        AccuWeatherLocalizationDto[] weatherResponse = restTemplate.getForObject(url, AccuWeatherLocalizationDto[].class);
-        if (weatherResponse != null) {
-            return Arrays.asList(weatherResponse);
-        }
-        LOGGER.error("Respond from server was null");
-        return new ArrayList<>();
+       try {
+           return Arrays.asList( restTemplate.getForObject(url, AccuWeatherLocalizationDto[].class));
+       }catch (Throwable e){
+           e.getMessage();
+           LOGGER.error("Respond from server was null");
+           return new ArrayList<>();
+       }
     }
 
     public AccuWeatherDto getAccuWeather(String locationKey) {

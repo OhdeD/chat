@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.487s</div>
+<div class="counter">0.132s</div>
 <p>duration</p>
 </div>
 </td>
@@ -79,27 +79,27 @@
 </thead>
 <tr>
 <td class="success">testDeleteByIdFromConvDB</td>
-<td class="success">0.012s</td>
+<td class="success">0.020s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">testFindById</td>
-<td class="success">0.006s</td>
+<td class="success">0.010s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">testGetConversation</td>
-<td class="success">0.256s</td>
+<td class="success">0.074s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">testSave</td>
-<td class="success">0.005s</td>
+<td class="success">0.007s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">testStartConversation</td>
-<td class="success">0.208s</td>
+<td class="success">0.021s</td>
 <td class="success">passed</td>
 </tr>
 </table>
@@ -107,26 +107,26 @@
 <div id="tab1" class="tab">
 <h2>Standard output</h2>
 <span class="code">
-<pre>2020-02-07 23:32:10.694  INFO 13144 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.chat.service.ConversationDBTestSuite], using SpringBootContextLoader
-2020-02-07 23:32:10.695  INFO 13144 --- [    Test worker] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [com.chat.service.ConversationDBTestSuite]: no resource found for suffixes {-context.xml, Context.groovy}.
-2020-02-07 23:32:10.695  INFO 13144 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.chat.service.ConversationDBTestSuite]: ConversationDBTestSuite does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2020-02-07 23:32:10.697  INFO 13144 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.chat.ChatApplication for test class com.chat.service.ConversationDBTestSuite
-2020-02-07 23:32:10.699  INFO 13144 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener, org.springframework.security.test.context.support.ReactorContextTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
-2020-02-07 23:32:10.701  INFO 13144 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@6548ecca, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@5f207800, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@34f4ed16, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@52cf1d7, org.springframework.test.context.support.DirtiesContextTestExecutionListener@27207304, org.springframework.test.context.transaction.TransactionalTestExecutionListener@7b9cff98, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@681321a0, org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener@a53d73c, org.springframework.test.context.event.EventPublishingTestExecutionListener@2e4f3d21, org.springframework.security.test.context.support.ReactorContextTestExecutionListener@3233774f, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@435c5e88, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@57229be8, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@530218, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@29f39452, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@87a37fa]
-2020-02-07 23:32:10.708  INFO 13144 --- [    Test worker] com.chat.service.ChatUserDbService       : Creating empty FriendsList and assigning it to Dagmara
-2020-02-07 23:32:10.808  INFO 13144 --- [    Test worker] com.chat.service.ChatUserDbService       : User added to DB
-2020-02-07 23:32:10.808  INFO 13144 --- [    Test worker] com.chat.service.RolesDBService          : role &quot;USER&quot; has been assigned
-2020-02-07 23:32:10.810  INFO 13144 --- [    Test worker] com.chat.service.ChatUserDbService       : Creating empty FriendsList and assigning it to Ania
-2020-02-07 23:32:10.918  INFO 13144 --- [    Test worker] com.chat.service.ChatUserDbService       : User added to DB
-2020-02-07 23:32:10.918  INFO 13144 --- [    Test worker] com.chat.service.RolesDBService          : role &quot;USER&quot; has been assigned
-2020-02-07 23:32:10.958  INFO 13144 --- [    Test worker] com.chat.service.ConvDbService           : Conversation found
-2020-02-07 23:32:10.971  INFO 13144 --- [    Test worker] com.chat.service.ChatUserDbService       : Creating empty FriendsList and assigning it to Dagmara
-2020-02-07 23:32:11.073  INFO 13144 --- [    Test worker] com.chat.service.ChatUserDbService       : User added to DB
-2020-02-07 23:32:11.073  INFO 13144 --- [    Test worker] com.chat.service.RolesDBService          : role &quot;USER&quot; has been assigned
-2020-02-07 23:32:11.075  INFO 13144 --- [    Test worker] com.chat.service.ChatUserDbService       : Creating empty FriendsList and assigning it to Ania
-2020-02-07 23:32:11.172  INFO 13144 --- [    Test worker] com.chat.service.ChatUserDbService       : User added to DB
-2020-02-07 23:32:11.172  INFO 13144 --- [    Test worker] com.chat.service.RolesDBService          : role &quot;USER&quot; has been assigned
-2020-02-07 23:32:11.173  INFO 13144 --- [    Test worker] com.chat.service.ConvDbService           : Starting new conversation
+<pre>2020-02-09 22:41:00.553  INFO 9940 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.chat.service.ConversationDBTestSuite], using SpringBootContextLoader
+2020-02-09 22:41:00.554  INFO 9940 --- [    Test worker] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [com.chat.service.ConversationDBTestSuite]: no resource found for suffixes {-context.xml, Context.groovy}.
+2020-02-09 22:41:00.554  INFO 9940 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.chat.service.ConversationDBTestSuite]: ConversationDBTestSuite does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2020-02-09 22:41:00.557  INFO 9940 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.chat.ChatApplication for test class com.chat.service.ConversationDBTestSuite
+2020-02-09 22:41:00.561  INFO 9940 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+2020-02-09 22:41:00.562  INFO 9940 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@5d40f68c, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@611e008b, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@43b312a9, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@72318e19, org.springframework.test.context.support.DirtiesContextTestExecutionListener@289ff245, org.springframework.test.context.transaction.TransactionalTestExecutionListener@3994a585, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@6269ce44, org.springframework.test.context.event.EventPublishingTestExecutionListener@1c56c556, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@4b0c1143, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@57a82d2a, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@7b9fd275, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@5149d425, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@7ae44146]
+2020-02-09 22:41:00.569  INFO 9940 --- [    Test worker] com.chat.service.ChatUserDbService       : Creating empty FriendsList and assigning it to Dagmara
+2020-02-09 22:41:00.573  INFO 9940 --- [    Test worker] com.chat.service.ChatUserDbService       : User added to DB
+2020-02-09 22:41:00.573  INFO 9940 --- [    Test worker] com.chat.service.RolesDBService          : role &quot;USER&quot; has been assigned
+2020-02-09 22:41:00.576  INFO 9940 --- [    Test worker] com.chat.service.ChatUserDbService       : Creating empty FriendsList and assigning it to Ania
+2020-02-09 22:41:00.580  INFO 9940 --- [    Test worker] com.chat.service.ChatUserDbService       : User added to DB
+2020-02-09 22:41:00.581  INFO 9940 --- [    Test worker] com.chat.service.RolesDBService          : role &quot;USER&quot; has been assigned
+2020-02-09 22:41:00.636  INFO 9940 --- [    Test worker] com.chat.service.ConvDbService           : Conversation found
+2020-02-09 22:41:00.652  INFO 9940 --- [    Test worker] com.chat.service.ChatUserDbService       : Creating empty FriendsList and assigning it to Dagmara
+2020-02-09 22:41:00.656  INFO 9940 --- [    Test worker] com.chat.service.ChatUserDbService       : User added to DB
+2020-02-09 22:41:00.657  INFO 9940 --- [    Test worker] com.chat.service.RolesDBService          : role &quot;USER&quot; has been assigned
+2020-02-09 22:41:00.659  INFO 9940 --- [    Test worker] com.chat.service.ChatUserDbService       : Creating empty FriendsList and assigning it to Ania
+2020-02-09 22:41:00.664  INFO 9940 --- [    Test worker] com.chat.service.ChatUserDbService       : User added to DB
+2020-02-09 22:41:00.664  INFO 9940 --- [    Test worker] com.chat.service.RolesDBService          : role &quot;USER&quot; has been assigned
+2020-02-09 22:41:00.666  INFO 9940 --- [    Test worker] com.chat.service.ConvDbService           : Starting new conversation
 </pre>
 </span>
 </div>
@@ -138,7 +138,7 @@
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="http://www.gradle.org">Gradle 6.0.1</a> at 2020-02-07 23:32:12</p>
+<a href="http://www.gradle.org">Gradle 6.0.1</a> at 2020-02-09 22:41:01</p>
 </div>
 </div>
 </body>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.chat.client.namesDay.NameDayClientTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2020-02-07T22:31:56" hostname="DESKTOP-9PLCVK5" time="1.078">
+<testsuite name="com.chat.client.namesDay.NameDayClientTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2020-02-09T21:40:47" hostname="DESKTOP-9PLCVK5" time="1.055">
   <properties/>
-  <testcase name="shouldFetchTomorrowNames" classname="com.chat.client.namesDay.NameDayClientTest" time="1.075"/>
-  <testcase name="shouldFetchTodayNames" classname="com.chat.client.namesDay.NameDayClientTest" time="0.002"/>
+  <testcase name="shouldFetchTomorrowNames" classname="com.chat.client.namesDay.NameDayClientTest" time="1.053"/>
+  <testcase name="shouldFetchTodayNames" classname="com.chat.client.namesDay.NameDayClientTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

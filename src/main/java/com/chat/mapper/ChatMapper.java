@@ -2,19 +2,13 @@ package com.chat.mapper;
 
 import com.chat.domain.*;
 import com.chat.domain.DTO.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.net.PasswordAuthentication;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
 public class ChatMapper {
-    @Autowired
-    PasswordEncoder passwordEncoder;
-
     public ChatUser mapToChatUser(ChatUserDto chatUserDto) {
         return new ChatUser(chatUserDto.getId(),
                 chatUserDto.getName(),
@@ -30,9 +24,9 @@ public class ChatMapper {
         return new ChatUser(chatUserDto.getName(),
                 chatUserDto.getSurname(),
                 chatUserDto.getMail(),
-                passwordEncoder.encode(chatUserDto.getPassword()),
+                chatUserDto.getPassword(),
                 chatUserDto.getCity(),
-                true);
+                false);
     }
 
     public ChatUserDto mapToChatUserDto(ChatUser chatUser) {
@@ -54,15 +48,17 @@ public class ChatMapper {
     }
 
     public FriendsListDto mapToFriendsListDto(FriendsList friendsList) {
-        return new FriendsListDto(friendsList.getId(), friendsList.getFriends().stream()
-                .map(a -> ChatUserDto.builder()
-                        .name(a.getName())
-                        .surname(a.getSurname())
-                        .mail(a.getMail())
-                        .password(a.getPassword())
-                        .city(a.getCity())
-                        .logged(a.isLogged()).build())
-                .collect(Collectors.toList()));
+        if (friendsList!= null) {
+            return new FriendsListDto(friendsList.getId(), friendsList.getFriends().stream()
+                    .map(a -> ChatUserDto.builder()
+                            .name(a.getName())
+                            .surname(a.getSurname())
+                            .mail(a.getMail())
+                            .password(a.getPassword())
+                            .city(a.getCity())
+                            .logged(a.isLogged()).build())
+                    .collect(Collectors.toList()));
+        }else return new FriendsListDto();
     }
 
     public FriendsList mapToFriendsList(FriendsListDto friendsListDto) {
@@ -108,7 +104,7 @@ public class ChatMapper {
     }
 
     public RolesDto mapToRolesDto(Roles r){
-        return new RolesDto().builder()
+        return RolesDto.builder()
                 .id(r.getId())
                 .chatUser(r.getChatUser())
                 .role(r.getRole()).build();

@@ -47,7 +47,7 @@ public class Fasada {
     }
 
     public List<ChatUserDto> getUserByName(Long userId, String name) throws ChatUserNotFoundException {
-        return chatMapper.mapToChatUserDtoList(chatUserDbService.findAllByName(name));
+        return chatMapper.mapToChatUserDtoList(chatUserDbService.findAllByNameOrSurname(name));
     }
 
     public void sendPost(Long userId, Long userId2, String message) throws ChatUserNotFoundException {
@@ -79,11 +79,15 @@ public class Fasada {
         }
     }
 
-    public String getCurrentUser() {
-        return chatUserDbService.getCurrentUser();
-    }
+//    public String getCurrentUser() {
+//        return chatUserDbService.getCurrentUser();
+//    }
 
-    public ChatUserDto getUserByMail(String mail) throws ChatUserNotFoundException {
-        return chatMapper.mapToChatUserDto(chatUserDbService.findByMail(mail));
+//    public ChatUserDto getUserByMail(String mail) throws ChatUserNotFoundException {
+//        return chatMapper.mapToChatUserDto(chatUserDbService.findByMail(mail));
+//    }
+
+    public ChatUserDto login(String mail, String password) {
+        return chatMapper.mapToChatUserDto(chatUserDbService.login(mail, password));
     }
 }
