@@ -6,7 +6,6 @@ import com.chat.domain.DTO.RolesDto;
 import com.chat.exception.ChatUserNotFoundException;
 import com.chat.fasada.Fasada;
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,7 +24,7 @@ public class ChatController {
 
     @PutMapping("/chat/{userId}")
     public void updateChatUser(@PathVariable("userId") Long userId, @RequestBody ChatUserDto chatUserDto) {
-        fasada.saveUser(chatUserDto);
+        fasada.updateUser(userId, chatUserDto);
     }
 
     @GetMapping("/chat/{userId}/friends")
@@ -38,7 +37,7 @@ public class ChatController {
         return fasada.addFriendToFriendsList(userId, user2Id);
     }
 
-    @DeleteMapping("/chat/{userId}/friends")
+    @PutMapping("/chat/{userId}/deleteFriend")
     public void deleteFriendFromFriendsList(@PathVariable("userId") Long userId, @RequestParam Long user2Id) throws ChatUserNotFoundException {
         fasada.deleteFriendFromFriendsList(userId, user2Id);
     }
@@ -54,8 +53,8 @@ public class ChatController {
     }
 
     @PostMapping("/chat/{userId}/{userId2}")
-    public void sendPost(@PathVariable("userId") Long userId, @PathVariable("userId2") Long userId2, @RequestParam String message) throws ChatUserNotFoundException {
-        fasada.sendPost(userId, userId2, message);
+    public String sendPost(@PathVariable("userId") Long userId, @PathVariable("userId2") Long userId2, @RequestParam String message) throws ChatUserNotFoundException {
+        return fasada.sendPost(userId, userId2, message);
     }
 
     @DeleteMapping("/chat/{userId}")
@@ -64,28 +63,33 @@ public class ChatController {
     }
 
     @DeleteMapping("/chat/admin")
-    public void deleteUser(@RequestParam("userId") Long userId){
+    public void deleteUser(@RequestParam("userId") Long userId) {
         fasada.deleteUser(userId);
     }
 
     @GetMapping("/chat/admin/allUsers")
-    public List<ChatUserDto> getAllUsers(){
+    public List<ChatUserDto> getAllUsers() {
         return fasada.getAllUsers();
     }
 
     @PutMapping("chat/admin")
-    public RolesDto setRole(@RequestParam("userId") Long userId, @RequestParam("role") String role){
+    public RolesDto setRole(@RequestParam("userId") Long userId, @RequestParam("role") String role) {
         return fasada.setRole(userId, role);
     }
 
-    @GetMapping("chat/admin")
-    public RolesDto getRole(@RequestParam("userId") Long userId){
+    @GetMapping("chat/role")
+    public RolesDto getRole(@RequestParam("userId") Long userId) {
         return fasada.getRole(userId);
     }
 
     @PostMapping("/login")
-    public ChatUserDto login(@RequestParam ("mail") String mail, @RequestParam ("password") String password){
+    public ChatUserDto login(@RequestParam("mail") String mail, @RequestParam("password") String password) {
         return fasada.login(mail, password);
+    }
+
+    @PutMapping("/logout")
+    public void logout(@RequestBody ChatUserDto chatUserDto) {
+        fasada.logout(chatUserDto);
     }
     //+Actuator endpoints
 }

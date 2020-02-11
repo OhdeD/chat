@@ -21,6 +21,7 @@ import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static java.util.Optional.ofNullable;
 
@@ -49,13 +50,41 @@ public class ChatUserDbService {
         return createdUser;
     }
 
+    public void updateUser(Long userId, ChatUserDto chatUserDto) {
+        try {
+            ChatUser user = ofNullable(chatUserRepo.findById(userId)).get().orElseThrow(ChatUserNotFoundException::new);
+            if (!chatUserDto.getName().equals("")) {
+                user.setName(chatUserDto.getName().toUpperCase());
+            }
+            if (!chatUserDto.getSurname().equals("")) {
+                user.setSurname(chatUserDto.getSurname().toUpperCase());
+            }
+            if (!chatUserDto.getPassword().equals("")) {
+                user.setPassword(chatUserDto.getPassword());
+            }
+            if (!chatUserDto.getCity().equals("")){
+                user.setCity(chatUserDto.getCity().toUpperCase());
+            }
+            if (!chatUserDto.getMail().equals("")) {
+                user.setMail(chatUserDto.getMail());
+            }
+            if (!chatUserDto.isLogged()) {
+                user.setLogged(true);
+            }
+            chatUserRepo.save(user);
+            LOGGER.info("Data changed");
+        } catch (ChatUserNotFoundException e) {
+            LOGGER.warn("Couldn't change data");
+            e.getMessage();
+        }
+    }
 
     public ChatUser findById(Long id) throws ChatUserNotFoundException {
         return chatUserRepo.findById(id).orElseThrow(ChatUserNotFoundException::new);
     }
 
     public List<ChatUser> findAllByName(String name) throws ChatUserNotFoundException {
-        return chatUserRepo.findAllByName(name).orElseThrow(ChatUserNotFoundException::new);
+        return chatUserRepo.findAllByName(name.toUpperCase()).orElseThrow(ChatUserNotFoundException::new);
     }
 
     public List<ChatUser> getAllUsers() {
@@ -93,14 +122,26 @@ public class ChatUserDbService {
             return user;
         } catch (ChatUserNotFoundException e) {
             LOGGER.warn("User not found");
-            ChatUser a =new ChatUser();
+            ChatUser a = new ChatUser();
             a.setName("noSuchUser");
             return a;
         }
     }
 
     public List<ChatUser> findAllByNameOrSurname(String name) throws ChatUserNotFoundException {
-        String preparedName = "%" + name + "%";
+        String preparedName = "" + name.toUpperCase() + "%";
         return chatUserRepo.findAllByNameOrSurname(preparedName).orElseThrow(ChatUserNotFoundException::new);
+    }
+
+    public void logout(ChatUserDto chatUserDto) {
+        try{
+            ChatUser user = ofNullable(chatUserRepo.findById(chatUserDto.getId())).get().orElseThrow(ChatUserNotFoundException::new);
+            user.setLogged(false);
+            chatUserRepo.save(user);
+            LOGGER.info("User logged out");
+        }catch (ChatUserNotFoundException e){
+            e.getMessage();
+            LOGGER.warn("Couldn't find User");
+        }
     }
 }

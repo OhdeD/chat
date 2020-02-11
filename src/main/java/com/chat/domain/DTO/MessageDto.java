@@ -1,9 +1,6 @@
 package com.chat.domain.DTO;
 
-import com.chat.domain.Conversation;
 import lombok.*;
-
-import javax.persistence.Column;
 import java.time.LocalDateTime;
 
 @AllArgsConstructor
@@ -14,7 +11,7 @@ import java.time.LocalDateTime;
 public class MessageDto {
     private Long id;
     private Long senderId;
-    private Long recieverId;
+    private Long receiverId;
     private String message;
     private LocalDateTime sendingDate;
     private Long conversationId;

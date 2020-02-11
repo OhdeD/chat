@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class FriendsListDbService {
@@ -40,6 +41,16 @@ public class FriendsListDbService {
 
     public void deleteFriendsListById(Long id) {
         friendsListRepo.deleteById(id);
+    }
+
+    public void deleteFriendsFromFriendslist(Long userId, Long user2Id) throws ChatUserNotFoundException {
+        FriendsList a = chatUserDbService.findById(userId).getFriendsList();
+        List<ChatUser> friendToDeleting = chatUserDbService.findById(userId).getFriendsList().getFriends().stream()
+                .filter(e -> e.getId() == user2Id)
+                .collect(Collectors.toList());
+        a.getFriends().removeAll(friendToDeleting);
+        friendsListRepo.save(a);
+        LOGGER.info("Friend: " + friendToDeleting.get(0).getName() + "deleted from friendslist.");
     }
 
 }

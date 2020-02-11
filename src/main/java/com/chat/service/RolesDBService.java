@@ -51,7 +51,7 @@ public class RolesDBService {
         Roles r = new Roles();
         r.setChatUser(user);
         if (user.getId() == 2) {
-            r.setRole("ROLE_ADMIN");
+            r.setRole("ADMIN");
             LOGGER.info("role \"ADMIN\" has been assigned");
         } else {
             r.setRole("USER");

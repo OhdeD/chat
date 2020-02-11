@@ -3,6 +3,7 @@ package com.chat.fasada;
 import com.chat.domain.DTO.ChatUserDto;
 import com.chat.domain.DTO.MessageDto;
 import com.chat.domain.DTO.RolesDto;
+import com.chat.domain.Message;
 import com.chat.exception.ChatUserNotFoundException;
 import com.chat.mapper.ChatMapper;
 import com.chat.service.*;
@@ -30,6 +31,10 @@ public class Fasada {
         return chatMapper.mapToChatUserDto(chatUserDbService.save(chatUserDto));
     }
 
+    public void updateUser(Long userId, ChatUserDto chatUserDto) {
+    chatUserDbService.updateUser(userId, chatUserDto);
+    }
+
     public List<ChatUserDto> getFriendsList(Long userId) throws ChatUserNotFoundException {
         return chatMapper.mapToChatUserDtoList(chatUserDbService.findById(userId).getFriendsList().getFriends());
     }
@@ -39,7 +44,7 @@ public class Fasada {
     }
 
     public void deleteFriendFromFriendsList(Long userId, Long user2Id) throws ChatUserNotFoundException {
-        friendsListDbService.deleteFriendsListById(user2Id);
+       friendsListDbService.deleteFriendsFromFriendslist(userId, user2Id);
     }
 
     public List<MessageDto> getConversation(Long userId, Long userId2) {
@@ -50,8 +55,8 @@ public class Fasada {
         return chatMapper.mapToChatUserDtoList(chatUserDbService.findAllByNameOrSurname(name));
     }
 
-    public void sendPost(Long userId, Long userId2, String message) throws ChatUserNotFoundException {
-        messageDbService.save(userId, userId2, message);
+    public String sendPost(Long userId, Long userId2, String message) throws ChatUserNotFoundException {
+        return messageDbService.save(userId, userId2, message).getMessage();
     }
 
     public void deletePost(Long userId, Long messgeId) {
@@ -79,15 +84,12 @@ public class Fasada {
         }
     }
 
-//    public String getCurrentUser() {
-//        return chatUserDbService.getCurrentUser();
-//    }
-
-//    public ChatUserDto getUserByMail(String mail) throws ChatUserNotFoundException {
-//        return chatMapper.mapToChatUserDto(chatUserDbService.findByMail(mail));
-//    }
-
     public ChatUserDto login(String mail, String password) {
         return chatMapper.mapToChatUserDto(chatUserDbService.login(mail, password));
+    }
+
+    public void logout(ChatUserDto chatUserDto) {
+        chatUserDbService.logout(chatUserDto);
+
     }
 }

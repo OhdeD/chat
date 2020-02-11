@@ -29,6 +29,7 @@ public interface ChatUserRepo extends CrudRepository<ChatUser, Long> {
     @Override
     ChatUser save(final ChatUser chatUser);
 
+
     Optional<List<ChatUser>> findAllByName(String name);
 
     @Query(value = "SELECT * FROM CHAT_USER ;", nativeQuery = true)

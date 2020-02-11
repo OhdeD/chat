@@ -11,5 +11,5 @@ import lombok.*;
 public class RolesDto {
     private Long id;
     private String role;
-    private ChatUser chatUser;
+    private ChatUserDto chatUserdto;
 }

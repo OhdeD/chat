@@ -11,21 +11,21 @@ import java.util.stream.Collectors;
 public class ChatMapper {
     public ChatUser mapToChatUser(ChatUserDto chatUserDto) {
         return new ChatUser(chatUserDto.getId(),
-                chatUserDto.getName(),
-                chatUserDto.getSurname(),
+                chatUserDto.getName().toUpperCase(),
+                chatUserDto.getSurname().toUpperCase(),
                 chatUserDto.getMail(),
                 chatUserDto.getPassword(),
-                chatUserDto.getCity(),
+                chatUserDto.getCity().toUpperCase(),
                 false,
                 mapToFriendsList(chatUserDto.getFriendsListDto()));
     }
 
     public ChatUser mapToNEWChatUser(ChatUserDto chatUserDto) {
-        return new ChatUser(chatUserDto.getName(),
-                chatUserDto.getSurname(),
+        return new ChatUser(chatUserDto.getName().toUpperCase(),
+                chatUserDto.getSurname().toUpperCase(),
                 chatUserDto.getMail(),
                 chatUserDto.getPassword(),
-                chatUserDto.getCity(),
+                chatUserDto.getCity().toUpperCase(),
                 false);
     }
 
@@ -68,14 +68,14 @@ public class ChatMapper {
     }
 
     public Message mapToMessage(MessageDto messageDto) {
-        return new Message(messageDto.getSenderId(), messageDto.getSenderId(), messageDto.getRecieverId(), messageDto.getMessage(), messageDto.getSendingDate(), messageDto.getConversationId(), messageDto.isRead());
+        return new Message(messageDto.getSenderId(), messageDto.getSenderId(), messageDto.getReceiverId(), messageDto.getMessage(), messageDto.getSendingDate(), messageDto.getConversationId(), messageDto.isRead());
     }
 
     public MessageDto mapToMessageDto(Message message) {
         return MessageDto.builder()
                 .id(message.getId())
                 .senderId(message.getSenderId())
-                .recieverId(message.getReceiverId())
+                .receiverId(message.getReceiverId())
                 .message(message.getMessage())
                 .sendingDate(message.getSendingDate())
                 .conversationId(message.getConversationId())
@@ -106,12 +106,12 @@ public class ChatMapper {
     public RolesDto mapToRolesDto(Roles r){
         return RolesDto.builder()
                 .id(r.getId())
-                .chatUser(r.getChatUser())
+                .chatUserdto(mapToChatUserDto(r.getChatUser()))
                 .role(r.getRole()).build();
     }
 
     public Roles mapToRoles (RolesDto r){
-        return new Roles(r.getId(), r.getRole(), r.getChatUser());
+        return new Roles(r.getId(), r.getRole(), mapToChatUser(r.getChatUserdto()));
     }
 
 }
