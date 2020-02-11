@@ -10,6 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.management.relation.Role;
+
 
 @Service
 public class RolesDBService {
@@ -31,7 +33,7 @@ public class RolesDBService {
 
     public Roles assignNewRole(Long userId,String newRole) {
        try {
-           Roles r = rolesRepo.findByChatUser(chatUserDbService.findById(userId));
+           Roles r = rolesRepo.findByChatUser(chatUserDbService.findById(userId)).orElseThrow(ChatUserNotFoundException::new);
            r.setRole(newRole);
            return rolesRepo.save(r);
        }catch (ChatUserNotFoundException e){
@@ -41,7 +43,12 @@ public class RolesDBService {
        }
     }
     public Roles findBYChatUser(ChatUser u ){
-        return rolesRepo.findByChatUser(u);
+       try {
+          return rolesRepo.findByChatUser(u).orElseThrow(RolesNotFoundException::new);
+       }catch (RolesNotFoundException e){
+           LOGGER.warn("Role not found");
+           return  new Roles();
+       }
     }
     public void delete(Roles r){
         rolesRepo.delete(r);

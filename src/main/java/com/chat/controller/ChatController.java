@@ -51,6 +51,10 @@ public class ChatController {
     public List<ChatUserDto> getUserByName(@PathVariable("userId") Long userId, @RequestParam String name) throws ChatUserNotFoundException {
         return fasada.getUserByName(userId, name);
     }
+    @GetMapping("/chat/{userId}")
+    public ChatUserDto getUserById(@PathVariable("userId") Long userId) {
+        return fasada.getUserById(userId);
+    }
 
     @PostMapping("/chat/{userId}/{userId2}")
     public String sendPost(@PathVariable("userId") Long userId, @PathVariable("userId2") Long userId2, @RequestParam String message) throws ChatUserNotFoundException {

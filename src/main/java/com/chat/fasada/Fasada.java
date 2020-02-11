@@ -76,12 +76,7 @@ public class Fasada {
     }
 
     public RolesDto getRole(Long userId) {
-        try {
-            return chatMapper.mapToRolesDto(rolesDBService.findBYChatUser(chatUserDbService.findById(userId)));
-        } catch (ChatUserNotFoundException e) {
-            e.getMessage();
-            return new RolesDto();
-        }
+        return chatMapper.mapToRolesDto(rolesDBService.findBYChatUser(chatUserDbService.findById(userId)));
     }
 
     public ChatUserDto login(String mail, String password) {
@@ -91,5 +86,9 @@ public class Fasada {
     public void logout(ChatUserDto chatUserDto) {
         chatUserDbService.logout(chatUserDto);
 
+    }
+
+    public ChatUserDto getUserById(Long userId) {
+        return chatMapper.mapToChatUserDto(chatUserDbService.findById(userId));
     }
 }

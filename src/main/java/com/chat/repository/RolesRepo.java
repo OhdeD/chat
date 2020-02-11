@@ -6,6 +6,8 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.swing.text.html.Option;
+import java.util.List;
 import java.util.Optional;
 
 @Transactional
@@ -17,6 +19,6 @@ public interface RolesRepo extends CrudRepository<Roles, Long> {
     @Override
     Optional<Roles> findById(Long id);
 
-    Roles findByChatUser(ChatUser u);
-    Roles findByRole(String role);
+    Optional<Roles> findByChatUser(ChatUser u);
+    Optional<List<Roles>> findByRole(String role);
 }

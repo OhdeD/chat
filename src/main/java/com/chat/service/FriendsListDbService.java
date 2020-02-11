@@ -46,11 +46,13 @@ public class FriendsListDbService {
     public void deleteFriendsFromFriendslist(Long userId, Long user2Id) throws ChatUserNotFoundException {
         FriendsList a = chatUserDbService.findById(userId).getFriendsList();
         List<ChatUser> friendToDeleting = chatUserDbService.findById(userId).getFriendsList().getFriends().stream()
-                .filter(e -> e.getId() == user2Id)
+                .filter(e -> e.getId().equals(user2Id))
                 .collect(Collectors.toList());
-        a.getFriends().removeAll(friendToDeleting);
-        friendsListRepo.save(a);
-        LOGGER.info("Friend: " + friendToDeleting.get(0).getName() + "deleted from friendslist.");
+        if (friendToDeleting.size() > 0) {
+            a.getFriends().removeAll(friendToDeleting);
+            friendsListRepo.save(a);
+            LOGGER.info("Friend: " + friendToDeleting.get(0).getName() + " deleted from friends list.");
+        }
+        LOGGER.warn("\"Delete\" button was used. No friend deleted");
     }
-
 }

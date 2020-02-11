@@ -38,6 +38,7 @@ public class AccuWeatherClient {
        }
     }
 
+
     public AccuWeatherDto getAccuWeather(String locationKey) {
         URI url = UriComponentsBuilder.fromHttpUrl(accuConfig.getWeatherEndpoint() + "/" + locationKey)
                 .queryParam("apikey", accuConfig.getWeatherKey())

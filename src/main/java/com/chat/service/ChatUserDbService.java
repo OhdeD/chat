@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.core.Authentication;
 //import org.springframework.security.core.context.SecurityContextHolder;
 //import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.swing.text.html.Option;
@@ -53,24 +54,12 @@ public class ChatUserDbService {
     public void updateUser(Long userId, ChatUserDto chatUserDto) {
         try {
             ChatUser user = ofNullable(chatUserRepo.findById(userId)).get().orElseThrow(ChatUserNotFoundException::new);
-            if (!chatUserDto.getName().equals("")) {
-                user.setName(chatUserDto.getName().toUpperCase());
-            }
-            if (!chatUserDto.getSurname().equals("")) {
-                user.setSurname(chatUserDto.getSurname().toUpperCase());
-            }
-            if (!chatUserDto.getPassword().equals("")) {
-                user.setPassword(chatUserDto.getPassword());
-            }
-            if (!chatUserDto.getCity().equals("")){
-                user.setCity(chatUserDto.getCity().toUpperCase());
-            }
-            if (!chatUserDto.getMail().equals("")) {
-                user.setMail(chatUserDto.getMail());
-            }
-            if (!chatUserDto.isLogged()) {
-                user.setLogged(true);
-            }
+            if (!chatUserDto.getName().equals("")) user.setName(chatUserDto.getName().toUpperCase());
+            if (!chatUserDto.getSurname().equals("")) user.setSurname(chatUserDto.getSurname().toUpperCase());
+            if (!chatUserDto.getPassword().equals("")) user.setPassword(chatUserDto.getPassword());
+            if (!chatUserDto.getCity().equals("")) user.setCity(chatUserDto.getCity().toUpperCase());
+            if (!chatUserDto.getMail().equals("")) user.setMail(chatUserDto.getMail());
+            if (!chatUserDto.isLogged()) user.setLogged(true);
             chatUserRepo.save(user);
             LOGGER.info("Data changed");
         } catch (ChatUserNotFoundException e) {
@@ -79,8 +68,14 @@ public class ChatUserDbService {
         }
     }
 
-    public ChatUser findById(Long id) throws ChatUserNotFoundException {
-        return chatUserRepo.findById(id).orElseThrow(ChatUserNotFoundException::new);
+    public ChatUser findById(Long id) {
+        try {
+            return chatUserRepo.findById(id).orElseThrow(ChatUserNotFoundException::new);
+        }catch (ChatUserNotFoundException e){
+            LOGGER.info("Chat user not found");
+            e.getMessage();
+            return new ChatUser();
+        }
     }
 
     public List<ChatUser> findAllByName(String name) throws ChatUserNotFoundException {
@@ -92,18 +87,14 @@ public class ChatUserDbService {
     }
 
     public void delete(Long userId) {
-        try {
-            ChatUser u = findById(userId);
-            Long id = u.getFriendsList().getId();
-            Roles r = rolesDBService.findBYChatUser(u);
-            rolesDBService.delete(r);
-            chatUserRepo.deleteById(userId);
-            LOGGER.info("User deleted.");
-            friendsListDbService.deleteFriendsListById(id);
-            LOGGER.info("User's friends list deleted.");
-        } catch (ChatUserNotFoundException e) {
-            LOGGER.warn("There's no such user");
-        }
+        ChatUser u = findById(userId);
+        Long id = u.getFriendsList().getId();
+        Roles r = rolesDBService.findBYChatUser(u);
+        rolesDBService.delete(r);
+        chatUserRepo.deleteById(userId);
+        LOGGER.info("User deleted.");
+        friendsListDbService.deleteFriendsListById(id);
+        LOGGER.info("User's friends list deleted.");
     }
 
     public String findCity(Long userId) {
@@ -133,13 +124,14 @@ public class ChatUserDbService {
         return chatUserRepo.findAllByNameOrSurname(preparedName).orElseThrow(ChatUserNotFoundException::new);
     }
 
+
     public void logout(ChatUserDto chatUserDto) {
-        try{
+        try {
             ChatUser user = ofNullable(chatUserRepo.findById(chatUserDto.getId())).get().orElseThrow(ChatUserNotFoundException::new);
             user.setLogged(false);
             chatUserRepo.save(user);
             LOGGER.info("User logged out");
-        }catch (ChatUserNotFoundException e){
+        } catch (ChatUserNotFoundException e) {
             e.getMessage();
             LOGGER.warn("Couldn't find User");
         }
