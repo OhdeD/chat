@@ -17,7 +17,4 @@ public interface FriendsListRepo extends CrudRepository<FriendsList, Long> {
 
     @Override
     void deleteById(Long id);
-
-
-
 }

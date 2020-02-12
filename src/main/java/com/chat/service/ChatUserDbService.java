@@ -7,22 +7,11 @@ import com.chat.domain.Roles;
 import com.chat.exception.ChatUserNotFoundException;
 import com.chat.mapper.ChatMapper;
 import com.chat.repository.ChatUserRepo;
-import org.apache.catalina.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.security.authentication.AnonymousAuthenticationToken;
-//import org.springframework.security.core.Authentication;
-//import org.springframework.security.core.context.SecurityContextHolder;
-//import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-
-import javax.swing.text.html.Option;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static java.util.Optional.ofNullable;
 
@@ -119,11 +108,11 @@ public class ChatUserDbService {
         }
     }
 
-    public List<ChatUser> findAllByNameOrSurname(String name) throws ChatUserNotFoundException {
+    public List<ChatUser>
+    findAllByNameOrSurname(String name) throws ChatUserNotFoundException {
         String preparedName = "" + name.toUpperCase() + "%";
         return chatUserRepo.findAllByNameOrSurname(preparedName).orElseThrow(ChatUserNotFoundException::new);
     }
-
 
     public void logout(ChatUserDto chatUserDto) {
         try {

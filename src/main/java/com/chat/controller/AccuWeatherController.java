@@ -28,5 +28,4 @@ public class AccuWeatherController {
         String locationKey = getAccuLocalization(userId);
         return accuWeatherClient.getAccuWeather(locationKey);
     }
-
 }

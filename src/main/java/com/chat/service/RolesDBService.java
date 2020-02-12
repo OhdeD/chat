@@ -10,9 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.management.relation.Role;
-
-
 @Service
 public class RolesDBService {
     @Autowired
@@ -37,7 +34,7 @@ public class RolesDBService {
            r.setRole(newRole);
            return rolesRepo.save(r);
        }catch (ChatUserNotFoundException e){
-           LOGGER.warn("User Not found");
+           LOGGER.warn("User Not found. Couldn't change role");
            e.getMessage();
            return new Roles();
        }

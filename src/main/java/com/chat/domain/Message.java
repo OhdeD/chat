@@ -14,22 +14,16 @@ public class Message   {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     @Column
     private Long senderId;
-
     @Column
     private Long receiverId;
-
     @Column(length = 1800)
     private String message;
-
     @Column
     private LocalDateTime sendingDate;
-
     @Column
     private Long conversationId;
-
     @Column
     private boolean read;
 
@@ -40,5 +34,4 @@ public class Message   {
         this.sendingDate = sendingDate;
         this.conversationId = conversationId;
     }
-
 }

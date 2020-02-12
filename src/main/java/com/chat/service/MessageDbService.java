@@ -11,8 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class MessageDbService  {
@@ -44,12 +42,11 @@ public class MessageDbService  {
     public void deleteById(Long id) {
         try {
             Conversation c = convDbService.findById( messegeRepo.findById(id).get().getConversationId());
-            boolean list = c.getMessages().removeIf(a->a.getId().equals(id));
+             c.getMessages().removeIf(a->a.getId().equals(id));
             convDbService.save(c);
         } catch (ConversationNotFoundException e) {
             LOGGER.warn(e.getMessage(), e);
         }
         messegeRepo.deleteById(id);
     }
-
 }

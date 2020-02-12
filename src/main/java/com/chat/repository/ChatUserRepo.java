@@ -1,7 +1,6 @@
 package com.chat.repository;
 
 import com.chat.domain.ChatUser;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -28,7 +27,6 @@ public interface ChatUserRepo extends CrudRepository<ChatUser, Long> {
 
     @Override
     ChatUser save(final ChatUser chatUser);
-
 
     Optional<List<ChatUser>> findAllByName(String name);
 

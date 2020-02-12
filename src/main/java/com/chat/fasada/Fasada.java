@@ -3,7 +3,6 @@ package com.chat.fasada;
 import com.chat.domain.DTO.ChatUserDto;
 import com.chat.domain.DTO.MessageDto;
 import com.chat.domain.DTO.RolesDto;
-import com.chat.domain.Message;
 import com.chat.exception.ChatUserNotFoundException;
 import com.chat.mapper.ChatMapper;
 import com.chat.service.*;

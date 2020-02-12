@@ -15,30 +15,23 @@ public class ChatUser  {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "USER_ID", unique = true)
     private Long id;
-
     @Column
     @NotNull
     private String name;
-
     @Column
     @NotNull
     private String surname;
-
     @Column
     @NotNull
     private String mail;
-
     @Column(length = 100)
     @NotNull
     private String password;
-
     @Column
     @NotNull
     private String city;
-
     @Column
     private boolean logged;
-
     @OneToOne
     @JoinColumn( name = "FRIENDS_LIST_ID")
     private FriendsList friendsList;
@@ -61,6 +54,4 @@ public class ChatUser  {
         this.city = city;
         this.logged = logged;
     }
-
-
 }

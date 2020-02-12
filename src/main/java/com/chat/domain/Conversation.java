@@ -17,12 +17,8 @@ public class Conversation {
     @GeneratedValue
     @Column(name = "CONVERSATION_ID")
     private Long id;
-
     @Column(name = "PARTICIPANTS")
     private String participants;
-
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = Message.class)
     private List<Message> messages = new ArrayList<>();
-
-
 }

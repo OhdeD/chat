@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
 @RestController
 @RequestMapping("/v1/nameday")
 public class NamesDayController {
@@ -17,6 +16,7 @@ public class NamesDayController {
     public String getTodayNames(){
         return nameDayClient.getTodayNames();
     }
+
     @GetMapping("/tomorrow")
     public String getTomorrowNames(){
         return nameDayClient.getTomorrowNames();
