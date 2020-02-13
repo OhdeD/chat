@@ -32,9 +32,7 @@ public class ChatUser  {
     private String city;
     @Column
     private boolean logged;
-    @OneToOne
-    @JoinColumn( name = "FRIENDS_LIST_ID")
-    private FriendsList friendsList;
+    private Long friendsListId;
 
     public ChatUser(String name, String surname, String mail, String password, String city, boolean logged) {
         this.name = name;

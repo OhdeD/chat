@@ -4,6 +4,7 @@ import com.chat.domain.DTO.ChatUserDto;
 import com.chat.domain.DTO.MessageDto;
 import com.chat.domain.DTO.RolesDto;
 import com.chat.exception.ChatUserNotFoundException;
+import com.chat.exception.FriendsListNotFoundException;
 import com.chat.mapper.ChatMapper;
 import com.chat.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +35,8 @@ public class Fasada {
     chatUserDbService.updateUser(userId, chatUserDto);
     }
 
-    public List<ChatUserDto> getFriendsList(Long userId) throws ChatUserNotFoundException {
-        return chatMapper.mapToChatUserDtoList(chatUserDbService.findById(userId).getFriendsList().getFriends());
+    public List<ChatUserDto> getFriendsList(Long userId) throws FriendsListNotFoundException {
+        return chatMapper.mapToChatUserDtoList(chatUserDbService.getFriendsList(userId));
     }
 
     public List<ChatUserDto> addFriendToFriendsList(Long userId, Long user2Id) throws ChatUserNotFoundException {

@@ -4,6 +4,7 @@ import com.chat.domain.DTO.ChatUserDto;
 import com.chat.domain.DTO.MessageDto;
 import com.chat.domain.DTO.RolesDto;
 import com.chat.exception.ChatUserNotFoundException;
+import com.chat.exception.FriendsListNotFoundException;
 import com.chat.fasada.Fasada;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +29,7 @@ public class ChatController {
     }
 
     @GetMapping("/chat/{userId}/friends")
-    public List<ChatUserDto> getFriendsList(@PathVariable("userId") Long userId) throws ChatUserNotFoundException {
+    public List<ChatUserDto> getFriendsList(@PathVariable("userId") Long userId) throws FriendsListNotFoundException {
         return fasada.getFriendsList(userId);
     }
 

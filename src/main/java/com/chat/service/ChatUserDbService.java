@@ -5,6 +5,7 @@ import com.chat.domain.DTO.ChatUserDto;
 import com.chat.domain.FriendsList;
 import com.chat.domain.Roles;
 import com.chat.exception.ChatUserNotFoundException;
+import com.chat.exception.FriendsListNotFoundException;
 import com.chat.mapper.ChatMapper;
 import com.chat.repository.ChatUserRepo;
 import org.slf4j.Logger;
@@ -33,7 +34,7 @@ public class ChatUserDbService {
         FriendsList friendsList = new FriendsList();
         friendsListDbService.saveFriendsList(friendsList);
         ChatUser user = chatMapper.mapToNEWChatUser(chatUserDto);
-        user.setFriendsList(friendsList);
+        user.setFriendsListId(friendsList.getId());
         ChatUser createdUser = chatUserRepo.save(user);
         LOGGER.info("User added to DB");
         rolesDBService.create(createdUser);
@@ -77,7 +78,7 @@ public class ChatUserDbService {
 
     public void delete(Long userId) {
         ChatUser u = findById(userId);
-        Long id = u.getFriendsList().getId();
+        Long id = u.getFriendsListId();
         Roles r = rolesDBService.findBYChatUser(u);
         rolesDBService.delete(r);
         chatUserRepo.deleteById(userId);
@@ -124,5 +125,9 @@ public class ChatUserDbService {
             e.getMessage();
             LOGGER.warn("Couldn't find User");
         }
+    }
+
+    public List<ChatUser> getFriendsList(Long userId) throws FriendsListNotFoundException {
+        return friendsListDbService.getFriendsListById(findById(userId).getFriendsListId()).getFriends();
     }
 }

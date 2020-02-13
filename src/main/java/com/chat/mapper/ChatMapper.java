@@ -17,7 +17,7 @@ public class ChatMapper {
                 chatUserDto.getPassword(),
                 chatUserDto.getCity().toUpperCase(),
                 false,
-                mapToFriendsList(chatUserDto.getFriendsListDto()));
+               chatUserDto.getFriendsListIdDto());
     }
 
     public ChatUser mapToNEWChatUser(ChatUserDto chatUserDto) {
@@ -38,7 +38,7 @@ public class ChatMapper {
                 .password(chatUser.getPassword())
                 .city(chatUser.getCity())
                 .logged(chatUser.isLogged())
-                .friendsListDto(mapToFriendsListDto(chatUser.getFriendsList())).build();
+                .friendsListIdDto(chatUser.getFriendsListId()).build();
     }
 
     public List<ChatUserDto> mapToChatUserDtoList(List<ChatUser> chatUserList) {

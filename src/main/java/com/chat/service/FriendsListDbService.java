@@ -28,7 +28,7 @@ public class FriendsListDbService {
 
     public List<ChatUser> addFriendToFriendsList(Long id, Long id2) throws ChatUserNotFoundException {
         ChatUser u2 = chatUserDbService.findById(id2);
-        FriendsList f = chatUserDbService.findById(id).getFriendsList();
+        FriendsList f = friendsListRepo.findById(chatUserDbService.findById(id).getFriendsListId()).get();
         f.getFriends().add(u2);
         friendsListRepo.save(f);
         LOGGER.info("Friend added to " + chatUserDbService.findById(id).getName() + "'s friends list");
@@ -44,8 +44,8 @@ public class FriendsListDbService {
     }
 
     public void deleteFriendsFromFriendslist(Long userId, Long user2Id) throws ChatUserNotFoundException {
-        FriendsList a = chatUserDbService.findById(userId).getFriendsList();
-        List<ChatUser> friendToDeleting = chatUserDbService.findById(userId).getFriendsList().getFriends().stream()
+        FriendsList a = friendsListRepo.findById(chatUserDbService.findById(userId).getFriendsListId()).get();
+        List<ChatUser> friendToDeleting = friendsListRepo.findById(chatUserDbService.findById(userId).getFriendsListId()).get().getFriends().stream()
                 .filter(e -> e.getId().equals(user2Id))
                 .collect(Collectors.toList());
         if (friendToDeleting.size() > 0) {
