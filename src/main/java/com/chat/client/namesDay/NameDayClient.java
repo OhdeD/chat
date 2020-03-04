@@ -6,10 +6,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.rmi.ServerException;
 
 @Controller
 public class NameDayClient {
@@ -23,19 +25,29 @@ public class NameDayClient {
         URI url = UriComponentsBuilder.fromHttpUrl(nameDayConfig.getToday())
                 .queryParam("country", "pl")
                 .queryParam("timezone", "Europe/Amsterdam").build().encode().toUri();
-        NamedayDataDto names = restTemplate.getForObject(url, NamedayDataDto.class);
-        if (names!=null)return names.getData().get(0).getNamedays().getPl();
-        LOGGER.warn("Wrong response from server");
-        return "";
+        try {
+            NamedayDataDto names = restTemplate.getForObject(url, NamedayDataDto.class);
+            if (names != null) return names.getData().get(0).getNamedays().getPl();
+            LOGGER.warn("Wrong response from server");
+            return "";
+        } catch (HttpServerErrorException e) {
+            LOGGER.warn(e.getMessage());
+            return "";
+        }
     }
 
     public String getTomorrowNames() {
         URI url = UriComponentsBuilder.fromHttpUrl(nameDayConfig.getTomorrow())
                 .queryParam("country", "pl")
                 .queryParam("timezone", "Europe/Amsterdam").build().encode().toUri();
-        NamedayDataDto names = restTemplate.getForObject(url, NamedayDataDto.class);
-        if (names!=null)return names.getData().get(0).getNamedays().getPl();
-        LOGGER.warn("Wrong response from server");
-        return "";
+        try {
+            NamedayDataDto names = restTemplate.getForObject(url, NamedayDataDto.class);
+            if (names != null) return names.getData().get(0).getNamedays().getPl();
+            LOGGER.warn("Wrong response from server");
+            return "";
+        } catch (HttpServerErrorException e) {
+            LOGGER.warn(e.getMessage());
+            return "";
+        }
     }
 }
