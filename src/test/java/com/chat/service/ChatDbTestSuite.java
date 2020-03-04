@@ -52,7 +52,7 @@ public class ChatDbTestSuite {
     }
 
     @Test
-    public void testChatUserDeleteById() throws ChatUserNotFoundException {
+    public void testChatUserDeleteById() {
         //Given
         ChatUserDto user = ChatUserDto.builder()
                 .name("Dagmara")
@@ -65,11 +65,8 @@ public class ChatDbTestSuite {
         Long userId = u.getId();
         chatUserDbService.delete(userId);
         ChatUser deletedUser1;
-        try {
-            deletedUser1 = chatUserDbService.findById(userId);
-        } catch (ChatUserNotFoundException e) {
-            deletedUser1 = null;
-        }
+
+        deletedUser1 = chatUserDbService.findById(userId);
 
         //Then
         Assert.assertNotNull(userId);
@@ -77,7 +74,7 @@ public class ChatDbTestSuite {
     }
 
     @Test
-    public void testChatUserFindById() throws ChatUserNotFoundException {
+    public void testChatUserFindById()  {
         //Given
         ChatUserDto user = ChatUserDto.builder()
                 .name("Dagmara")
@@ -123,7 +120,7 @@ public class ChatDbTestSuite {
         ChatUser u = chatUserDbService.save(user);
         ChatUser u2 = chatUserDbService.save(user2);
         String name = u.getName();
-        String name2  = u2.getName();
+        String name2 = u2.getName();
         List<ChatUser> foundUser1 = chatUserDbService.findAllByName(name);
         List<ChatUser> foundUser2 = chatUserDbService.findAllByName(name2);
 

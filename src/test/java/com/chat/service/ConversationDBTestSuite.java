@@ -3,7 +3,6 @@ package com.chat.service;
 import com.chat.domain.ChatUser;
 import com.chat.domain.Conversation;
 import com.chat.domain.DTO.ChatUserDto;
-import com.chat.domain.Message;
 import com.chat.exception.ConversationNotFoundException;
 import org.junit.Test;
 import org.junit.runner.RunWith;

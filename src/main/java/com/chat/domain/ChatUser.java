@@ -11,8 +11,9 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 public class ChatUser  {
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="chatUser_id_seq")
+    @SequenceGenerator(name="chatUser_id_seq", sequenceName="chatUser_id_seq", allocationSize=1)
     @NotNull
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "USER_ID", unique = true)
     private Long id;
     @Column
